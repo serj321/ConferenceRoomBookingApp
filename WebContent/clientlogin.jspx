@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	version="2.0">
+    <jsp:directive.page language="java"
+        contentType="application/xhtml+xml; charset=UTF-8" pageEncoding="UTF-8" />
+    <jsp:output omit-xml-declaration="no"
+        doctype-root-element="html"
+        doctype-public="-//W3C//DTD XHTML 1.1//EN"
+        doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<form action="clientlogin.jspx" method="post">
+		<h1>Welcome to the Hotel Conference Room Booking Application !</h1>
+		<h2 class="errorMessage">Your login attempt has failed ! Please try again</h2>
+		
+		<label for="clientId">Enter your Client ID</label>
+		<input type="textboox"> </input>
+	
+		<label for="clientPassword">Enter your Password</label>
+		<input type="password"> </input>
+		
+		<button>Submit</button>
+	</form>
+		
+</body>
+</html>
+</jsp:root>

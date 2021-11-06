@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	version="2.0">
+    <jsp:directive.page language="java"
+        contentType="application/xhtml+xml; charset=UTF-8" pageEncoding="UTF-8" />
+    <jsp:output omit-xml-declaration="no"
+        doctype-root-element="html"
+        doctype-public="-//W3C//DTD XHTML 1.1//EN"
+        doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<link rel="stylesheet" type="text/css" href="bookings.css" />
+<title>Hotel Conference Room</title>
+</head>
+<body>
+<h2 id="noBookings">The client currently has no hotel conference room bookings.</h2>
+		<h2>Your conference room bookings: </h2>
+		<section class="space-between">
+  			<div class="flex-item heading">Room name</div>
+  			<div class="flex-item heading">Room capacity</div>
+  			<div class="flex-item heading">Booking start date</div>
+ 			<div class="flex-item heading">Booking start time</div>
+ 			<div class="flex-item heading">Booking duration</div>
+ 			<div class="flex-item heading">Booking cost</div>
+ 			<div class="flex-item heading">Cancel Booking</div>
+ 			<div class="flex-item hide-item">Booking code</div>			
+		</section>
+		<form action="bookings.jspx" method="post">
+		<section class="space-between">
+  			<div class="flex-item">Room #33</div>
+  			<div class="flex-item">15</div>
+  			<div class="flex-item">12/24/21</div>
+ 			<div class="flex-item">10:00 AM</div>
+ 			<div class="flex-item">3:00 Hours</div>
+ 			<div class="flex-item">$1000.00</div>
+ 			<div class="flex-item hide-item">2543</div>
+ 			<button>Cancel booking</button>
+		</section>
+		</form>
+		<form action="bookings.jspx" method="post">
+		<section class="space-between">
+  			<div class="flex-item">Room #213</div>
+  			<div class="flex-item">10</div>
+  			<div class="flex-item">12/28/21</div>
+ 			<div class="flex-item">11:30 AM</div>
+ 			<div class="flex-item">3:00 Hours</div>
+ 			<div class="flex-item">$750.00</div>
+ 			<div class="flex-item hide-item">2516</div>
+ 			<button>Cancel booking</button>	
+		</section>
+		</form>
+		
+</body>
+</html>
+</jsp:root>
+
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+.navbar{
+	list-style-type: none;
+	overflow: hidden;
+	background-color: #333;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	margin: 0;
+	padding: 1em;
+}
+
+li {
+	float: left;
+}
+
+p{
+	margin-block-start: 0;
+	margin-block-start: 0;
+}
+
+.menu-text {
+	cisplay: block;
+	color: white;
+	text-align: center;
+	padding: 2em;
+	text-decoration: none;
+}
+
+li a:hover {
+	backtround-color: #111;
+}
+
+body{
+	margin: 0;
+}

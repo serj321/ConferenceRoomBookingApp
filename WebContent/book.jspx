@@ -16,13 +16,18 @@
 
 </head>
 <body>
-	<ul class="navbar">
-		<li><a class="menu-text">Serj Sililian</a></li>
-		<li><a class="menu-text">4 Hotel Bookings</a></li>
-		<li><a href="book.jspx" class="menu-text">Book a Room</a></li>
-		<li><a href="bookings.jspx" class="menu-text">Current Bookings</a></li>
-		<li><a href="#" class="menu-text">Logout</a></li>
-	</ul>
+	<form>
+		<label for="startingDate">Starting Date: </label>
+		<input type="datepicker" name="startingDate"/></input>
+		<label for="start">Start Time: </label>
+		<select name="start" id="start">
+		</select>
+		<label for="minCap">Minimum Room Capacity: </label>
+		<input type="number" name="minCap" id="minCap"/></input>
+		<label for="maxRate>Maximum Hourly Rate:</label>
+		<input type="number" name="maxRate" id="maxRate"/></input>
+		<input name="ok" type="submit" value="Search Availability"></input>
+	</form>
 </body>
 </html>
 </jsp:root>

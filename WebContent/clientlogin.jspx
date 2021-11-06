@@ -11,21 +11,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="clientlogin.css" />
+<title>Hotel Conference Room</title>
 </head>
 <body>
-	
 	<form action="clientlogin.jspx" method="post">
 		<h1>Welcome to the Hotel Conference Room Booking Application !</h1>
-		<h2 class="errorMessage">Your login attempt has failed ! Please try again</h2>
 		
-		<label for="clientId">Enter your Client ID</label>
-		<input type="textboox"> </input>
-	
-		<label for="clientPassword">Enter your Password</label>
-		<input type="password"> </input>
-		
+		<label for="clientId">Enter your Client ID  </label>
+		<input type="textboox" id="clientId"> </input>
+		<br></br>
+		<label for="clientPassword">Enter your Password  </label>
+		<input type="password" id="clientPassword"> </input>
+		<br></br>
 		<button>Submit</button>
+		<br></br>
+		<h2>Your login attempt has failed ! Please try again</h2>
 	</form>
 		
 </body>

@@ -18,6 +18,7 @@
 <script type="text/javascript" src="datepicker.js"></script>
 </head>
 <body>
+<jsp:include page="hocorbamenu.jspx" />
 	<form action="book.jspx" method="post">
 		<label for="startingDate">Starting Date: </label>
 		<input type="text" name="startingDate" id="startingDate"></input><br></br><br></br>
@@ -229,6 +230,83 @@
 		<p class="error-message">Starting date is not valid.</p>
 		<p class="error-message">Minimum room capacity is not valid.</p>
 		<p class="error-message">Maximum hourly rate is not valid.</p>
+	</div>
+	
+	<div>
+		<h2>Search Criteria</h2>
+		<p>Starting Date: November 03, 2021</p>
+		<p>Starting Time: 105</p>
+		<p>Duration: 60 minutes</p>
+		<p>Minimum Room Capacity: 5</p>
+		<p>Maximum Hourly Rate: $4</p>
+		
+		<h2>Available Bookings:</h2>
+		<form>
+		<table>
+			<tr>
+				<th>Room Name</th>
+				<th>Room Capacity</th>
+				<th>Hourly Rate</th>
+				<th>These fields will be hidden</th>
+			</tr>
+			<tr>
+				<td>Room A</td>
+				<td>5</td>
+				<td>$3</td>
+				<td>
+					<form>
+						<input type="text" name="roomCode" value="111111111"></input>
+						<input type="text" name="startingDate" value="November 03, 2021"></input>
+						<input type="text" name="startingTime" value="105"></input>
+						<input type="text" name="duration" value="60"></input>
+						<input type="submit" value="Book Room"></input>
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td>Room C</td>
+				<td>5</td>
+				<td>$4</td>
+				<td>
+					<form>
+						<input type="text" name="roomCode" value="222222222"></input>
+						<input type="text" name="startingDate" value="November 03, 2021"></input>
+						<input type="text" name="startingTime" value="105"></input>
+						<input type="text" name="duration" value="60"></input>
+						<input type="submit" value="Book Room"></input>
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td>Room E</td>
+				<td>5</td>
+				<td>$2</td>
+				<td>
+					<form>
+						<input type="text" name="roomCode" value="333333333"></input>
+						<input type="text" name="startingDate" value="November 03, 2021"></input>
+						<input type="text" name="startingTime" value="105"></input>
+						<input type="text" name="duration" value="60"></input>
+						<input type="submit" value="Book Room"></input>
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td>Room G</td>
+				<td>5</td>
+				<td>$4</td>
+				<td>
+					<form>
+						<input type="text" name="roomCode" value="123456789"></input>
+						<input type="text" name="startingDate" value="November 03, 2021"></input>
+						<input type="text" name="startingTime" value="105"></input>
+						<input type="text" name="duration" value="60"></input>
+						<input type="submit" value="Book Room"></input>
+					</form>
+				</td>
+			</tr>
+		</table>
+		</form>
 	</div>
 </body>
 </html>

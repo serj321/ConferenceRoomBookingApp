@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" 
-	xmlns:c="http://java.sun.com/jsp/jstl/core" 
-	version="2.0">
-    <jsp:directive.page language="java"
-        contentType="application/xhtml+xml; charset=UTF-8" pageEncoding="UTF-8" />
-    <jsp:output omit-xml-declaration="no"
-        doctype-root-element="html"
-        doctype-public="-//W3C//DTD XHTML 1.1//EN"
-        doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" />
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Insert title here</title>
-<link rel="stylesheet" href="styles.css" type="text/css" />
-
-</head>
-<body>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page language="java"/>
+	<h2>Book a New Conference Room</h2>
 	<ul class="navbar">
 		<li><a class="menu-text">Serj Sililian</a></li>
 		<li><a class="menu-text">4 Hotel Bookings</a></li>
@@ -23,6 +9,4 @@
 		<li><a href="bookings.jspx" class="menu-text">Current Bookings</a></li>
 		<li><a href="#" class="menu-text">Logout</a></li>
 	</ul>
-</body>
-</html>
 </jsp:root>

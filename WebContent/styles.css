@@ -31,13 +31,9 @@ li a:hover {
 }
 
 body{
-	margin: 0;
+	margin: 6em 0em 0em 0em !important;
 }
 
 .error-message{
 	background-color: red ;
-}
-
-.error-box{
-	width: 15em;
 }

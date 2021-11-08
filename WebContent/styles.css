@@ -37,3 +37,7 @@ body{
 .error-message{
 	background-color: red ;
 }
+
+.error-box{
+	width: 20em ;
+}

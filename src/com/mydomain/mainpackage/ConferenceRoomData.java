@@ -1,5 +1,4 @@
-package com.mydomain.mainpackage.data;
-import ConferenceRoomDAOFactory.java;
+package com.mydomain.mainpackage;
 
 class ConferenceRoomData implements ConferenceRoomDAO{
 

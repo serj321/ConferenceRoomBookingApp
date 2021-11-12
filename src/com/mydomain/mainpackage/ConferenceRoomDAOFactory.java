@@ -1,4 +1,4 @@
-package com.mydomain.mainpackage.data;
+package com.mydomain.mainpackage;
 
 import ConferenceRoomDAO;
 

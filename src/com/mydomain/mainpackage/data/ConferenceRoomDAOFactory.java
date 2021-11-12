@@ -1,5 +1,7 @@
 package com.mydomain.mainpackage.data;
 
+import ConferenceRoomDAO;
+
 public class ConferenceRoomDAOFactory {
 
 	public ConferenceRoomDAOFactory() {

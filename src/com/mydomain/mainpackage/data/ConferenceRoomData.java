@@ -1,6 +1,7 @@
 package com.mydomain.mainpackage.data;
+import ConferenceRoomDAOFactory.java;
 
- class ConferenceRoomData implements ConferenceRoomDAO{
+class ConferenceRoomData implements ConferenceRoomDAO{
 
 	public ConferenceRoomData() {
 		// TODO Auto-generated constructor stub

@@ -6,6 +6,9 @@ import javax.servlet.ServletException;
 import ca.senecacollege.prg556.hocorba.bean.Client;
 import ca.senecacollege.prg556.hocorba.dao.ClientDAO;
 
+import ca.senecacollege.prg556.hocorba.bean.Client;
+import ca.senecacollege.prg556.hocorba.dao.ClientDAO;
+
 //import com.sun.jersey.api.client.Client;
 
 public class ClientData implements ClientDAO

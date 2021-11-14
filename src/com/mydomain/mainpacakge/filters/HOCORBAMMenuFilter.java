@@ -41,7 +41,7 @@ public class HOCORBAMMenuFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest req, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		// place your code here
 		
@@ -63,7 +63,7 @@ public class HOCORBAMMenuFilter implements Filter {
 		}
 		
 		// pass the request along the filter chain
-		chain.doFilter(req, response);
+		chain.doFilter(req, res);
 	}
 
 	/**

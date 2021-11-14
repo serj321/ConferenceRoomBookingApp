@@ -13,9 +13,9 @@ import ca.senecacollege.prg556.hocorba.dao.ConferenceRoomDAO;
 
 
 //import com.mydomain.mainpackage.ConferenceRoom;
-import com.sun.xml.rpc.processor.modeler.j2ee.xml.string;
-import java.math.BigDecimal;
-import javax.servlet.ServletException;
+//import com.sun.xml.rpc.processor.modeler.j2ee.xml.string;
+//import java.math.BigDecimal;
+//import javax.servlet.ServletException;
 
 class ConferenceRoomData implements ConferenceRoomDAO {
 

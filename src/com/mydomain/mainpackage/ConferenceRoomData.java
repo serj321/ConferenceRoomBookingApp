@@ -1,4 +1,7 @@
 package com.mydomain.mainpackage;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
 
 class ConferenceRoomData implements ConferenceRoomDAO{
 
@@ -10,13 +13,21 @@ class ConferenceRoomData implements ConferenceRoomDAO{
 		// TODO Auto-generated method stub
 
 	}
-	public List<ConferenceRoom> findAvailableConferenceRooms(Date start, int duration, Integer minimumCapacity, BigDecimal maximumRate) throws SQLException
+	public List<ConferenceRoom> findAvailableConferenceRooms(Date start, int duration, Integer minimumCapacity, BigDecimal maximumRate) throws SQLException, ServletException
 	{
-		ConferenceRoomDAOFactory roomDAO = new ConferenceRoomDAOFactory();
-		List<ConferenceRoom> rooms = new ArrayList<ConferenceRoom>();
-		for(int i = 0; i < 2; i++)
+		try
 		{
-			rooms.add(getConferenceRoomDAO());
+			ConferenceRoomDAOFactory roomDAO = new ConferenceRoomDAOFactory();
+			List<ConferenceRoom> rooms = new ArrayList<ConferenceRoom>();
+			for(int i = 0; i < 2; i++)
+			{
+				rooms.add(getConferenceRoomDAO());
+			}
+			return rooms;
+		}
+		catch(SQLException sqle)
+		{
+			throw new ServletException(sqle);
 		}
 	}
 	

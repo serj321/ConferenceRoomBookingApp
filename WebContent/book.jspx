@@ -121,8 +121,8 @@
 			<option value="1405">11:30pm</option>
 			<option value="1420">11:45pm</option>
 		</select><br></br><br></br>
-		<label for="start">Duration: </label>
-		<select name="start" id="start">
+		<label for="duration">Duration: </label>
+		<select name="duration" id="duration">
 			<option value="15">0:15</option>
 			<option value="30">0:30</option>
 			<option value="45">0:45</option>

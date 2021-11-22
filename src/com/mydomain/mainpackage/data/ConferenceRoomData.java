@@ -17,7 +17,7 @@ import ca.senecacollege.prg556.hocorba.dao.ConferenceRoomDAO;
 //import java.math.BigDecimal;
 //import javax.servlet.ServletException;
 
-class ConferenceRoomData implements ConferenceRoomDAO {
+public class ConferenceRoomData implements ConferenceRoomDAO {
 
 	List<ca.senecacollege.prg556.hocorba.bean.ConferenceRoom> rooms = new ArrayList<ca.senecacollege.prg556.hocorba.bean.ConferenceRoom>();
 	public ConferenceRoomData() {

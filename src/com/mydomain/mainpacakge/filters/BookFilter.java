@@ -18,6 +18,7 @@ import ca.senecacollege.prg556.hocorba.bean.Client;
 import ca.senecacollege.prg556.hocorba.bean.ConferenceRoom;
 import ca.senecacollege.prg556.hocorba.dao.ConferenceRoomDAO;
 
+import com.mydomain.mainpackage.data.BadRequestException;
 import com.mydomain.mainpackage.data.ClientData;
 
 /**

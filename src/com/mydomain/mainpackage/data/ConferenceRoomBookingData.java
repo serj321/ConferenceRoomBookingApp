@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 import ca.senecacollege.prg556.hocorba.bean.ConferenceRoom;
 import ca.senecacollege.prg556.hocorba.bean.ConferenceRoomBooking;
 
-class ConferenceRoomBookingData {
+public class ConferenceRoomBookingData {
 	
 	public ConferenceRoomBooking bookConferenceRoom(int clientId, String roomCode, Date start, int duration){
 		try{

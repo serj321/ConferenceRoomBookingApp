@@ -73,7 +73,7 @@ public class BookFilter implements Filter {
 			
 			//Start time set
 			String startTime = request.getParameter("start");
-			request.setAttribute("start", startTime);
+			request.setAttribute("startTime", startTime);
 			
 			
 			//Duration set
@@ -98,7 +98,9 @@ public class BookFilter implements Filter {
 						request.setAttribute("capacityNotValid", capacityNotValid);
 					} else{
 						capacityNotValid = false;
+						request.setAttribute("capacity", capacity);
 						request.setAttribute("capacityInt", capacityInt);
+
 					}
 				} catch (NumberFormatException e){
 					capacityNotValid = true;
@@ -128,6 +130,8 @@ public class BookFilter implements Filter {
 						maxRateNotValid = false;
 						BigDecimal maxRateBig = BigDecimal.valueOf(maxRateDouble);
 						request.setAttribute("maxRateBig", maxRateBig);
+						request.setAttribute("maxRate", maxRate);
+
 					}
 				} catch (NumberFormatException e){
 					maxRateNotValid = true;
@@ -139,7 +143,7 @@ public class BookFilter implements Filter {
 			
 			//Room Code set and check
 			String roomCode = request.getParameter("roomCode");
-			//Do this if the submit button was pressed
+			//Do this if the submit button was pressed NOT SURE HOW
 			if(roomCode == null || roomCode == ""){
 				throw new BadRequestException("date is invalid");
 			} else{

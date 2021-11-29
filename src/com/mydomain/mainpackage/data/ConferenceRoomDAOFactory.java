@@ -1,6 +1,6 @@
 package com.mydomain.mainpackage.data;
 
-import com.mydomain.mainpackage.ConferenceRoomDAO;
+import ca.senecacollege.prg556.hocorba.dao.ConferenceRoomDAO;
 
 public class ConferenceRoomDAOFactory {
 

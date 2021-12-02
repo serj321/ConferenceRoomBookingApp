@@ -69,7 +69,7 @@ public class ClientLoginFilter implements Filter {
 				{
 					if(clientData.validateClient(clientID, clientPassword) != null)
 					{
-						
+						//redirect to context root
 					}
 				}
 				catch (SQLException e) 

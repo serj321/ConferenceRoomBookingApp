@@ -21,7 +21,7 @@
 <jsp:include page="hocorbamenu.jspx" />
 	<form action="book.jspx" method="post">
 		<label for="startingDate">Starting Date: </label>
-		<input type="text" name="startingDate" id="startingDate"></input><br></br><br></br>
+		<input type="text" name="startingDate" id="startingDate" value="${startingDate}"></input><br></br><br></br>
 		<label for="start">Start Time: </label>
 		<select name="start" id="start">
 			<option value="0">12:00am</option>
@@ -220,25 +220,30 @@
 			<option value="1420">23:45</option>
 			<option value="1435">24:00</option>
 		</select><br></br><br></br>
-		<label for="minCap">Minimum Room Capacity: </label>
-		<input type="number" name="minCap" id="minCap"></input><br></br><br></br>
+		<label for="minCap" ">Minimum Room Capacity: </label>
+		<input type="number" name="minCap" id="minCap" value="${capacity}></input><br></br><br></br>
 		<label for="maxRate">Maximum Hourly Rate:</label>
-		<input type="number" name="maxRate" id="maxRate"></input><br></br><br></br>
+		<input type="number" name="maxRate" id="maxRate" value="${maxRate}"></input><br></br><br></br>
 		<input name="ok" type="submit" value="Search Availability"></input>
 	</form>
 	<div class="error-box">
-		<p class="error-message">Starting date is not valid.</p>
-		<p class="error-message">Minimum room capacity is not valid.</p>
-		<p class="error-message">Maximum hourly rate is not valid.</p>
+		<c:if test="${startDateNotValid}"><p class="error-message">Starting date is not valid.</p></c:if>
+		<c:if test="${capacityNotValid}"><p class="error-message">Minimum room capacity is not valid.</p></c:if>
+		<c:if test="${maxRateNotValid}"><p class="error-message">Maximum hourly rate is not valid.</p></c:if>
 	</div>
 	
+	<c:if test="${!empty conferenceRooms}">
 	<div>
 		<h2>Search Criteria</h2>
-		<p>Starting Date: November 03, 2021</p>
-		<p>Starting Time: 105</p>
-		<p>Duration: 60 minutes</p>
-		<p>Minimum Room Capacity: 5</p>
-		<p>Maximum Hourly Rate: $4</p>
+		<p>Starting Date: ${startingDate}</p>
+		<p>Starting Time: ${startTime}</p>
+		<p>Duration: ${duration} minutes</p>
+		<c:if test="${!empty capacity}">
+		<p>Minimum Room Capacity: ${capacity}</p>
+		</c:if>
+		<c:if test="${!empty maxRate}">		
+		<p>Maximum Hourly Rate: $ ${maxRate}</p>
+		</c:if >
 		
 		<h2>Available Bookings:</h2>
 		<form>
@@ -263,6 +268,23 @@
 					</form>
 				</td>
 			</tr>
+			<c:forEach var="conferenceRoom" items="${conferenceRooms}" varStatus="status">
+				<tr>
+				<td>${conferenceRoom.getName()}</td>
+				<td>${conferneceRoom.getCapacity()}</td>
+				<td>$ ${conferenceRoom.getRate()}</td>
+				<td>
+					<form>
+						<input type="text" name="roomCode" value="${conferenceRoom.getCode()}"></input>
+						<input type="text" name="startingDate" value="${startingDate}"></input>
+						<input type="text" name="startingTime" value="${startTime}"></input>
+						<input type="text" name="duration" value="${duration}"></input>
+						<input type="submit" value="Book Room"></input>
+					</form>
+				</td>
+			</tr>
+			</c:forEach>
+			<!-- 
 			<tr>
 				<td>Room C</td>
 				<td>5</td>
@@ -305,9 +327,16 @@
 					</form>
 				</td>
 			</tr>
+			-->
 		</table>
 		</form>
 	</div>
+	</c:if>
+	<c:if>
+	<div>
+		<h1>No Conference Rooms</h1>
+	</div>
+	</c:if>
 </body>
 </html>
 </jsp:root>

@@ -5,8 +5,8 @@
     <welcome-file>index.jspx</welcome-file>
   </welcome-file-list>
   <error-page>
-  	<exception-type>BadRequestException</exception-type>
-  	<location>badrequest.jspx</location>
+    <exception-type>BadRequestException</exception-type>
+    <location>badrequest.jspx</location>
   </error-page>
   <filter>
     <display-name>RedirectFilter</display-name>

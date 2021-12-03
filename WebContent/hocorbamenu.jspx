@@ -3,8 +3,8 @@
     <jsp:directive.page language="java"/>
 	<h2>Book a New Conference Room</h2>
 	<ul class="navbar">
-		<li><a class="menu-text">Serj Sililian</a></li>
-		<li><a class="menu-text">4 Hotel Bookings</a></li>
+		<li><a class="menu-text">${client.getFirstName()} ${client.getLastName()}</a></li>
+		<li><a class="menu-text">${bookingCount} Hotel Bookings</a></li>
 		<li><a href="book.jspx" class="menu-text">Book a Room</a></li>
 		<li><a href="bookings.jspx" class="menu-text">Current Bookings</a></li>
 		<li><a href="#" class="menu-text">Logout</a></li>

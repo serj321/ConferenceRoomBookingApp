@@ -16,12 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import ca.senecacollege.prg556.hocorba.bean.Client;
 import ca.senecacollege.prg556.hocorba.bean.ConferenceRoomBooking;
-import ca.senecacollege.prg556.hocorba.dao.ConferenceRoomBookingDAO;
-
-import com.mydomain.mainpackage.data.ClientData;
-import com.mydomain.mainpackage.data.ConferenceRoomBookingDAOFactory;
 import com.mydomain.mainpackage.data.ConferenceRoomBookingData;
-import com.mydomain.mainpackage.data.ConferenceRoomData;
 import com.mydomain.mainpackage.data.DataSourceFactory;
 
 /**

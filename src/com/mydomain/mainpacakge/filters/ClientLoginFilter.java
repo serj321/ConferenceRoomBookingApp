@@ -12,7 +12,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import ca.on.senecac.prg556.common.StringHelper;
+import ca.on.senecac.prg556.sima.bean.SimaUser;
+import ca.on.senecac.prg556.sima.bean.UserSession;
+import ca.on.senecac.prg556.sima.data.UserDAOFactory;
 import ca.senecacollege.prg556.hocorba.bean.Client;
 
 import com.mydomain.mainpackage.data.ClientData;
@@ -49,40 +55,46 @@ public class ClientLoginFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request,ServletResponse response, FilterChain chain) throws ServletException, IOException		// TODO Auto-generated method stub
-		
-	{
+	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
+		// TODO Auto-generated method stub
 		// place your code here
-	
-		HttpServletRequest req = (HttpServletRequest)request;
-		
-		if ("POST".equals(((HttpServletRequest) request).getMethod())) // request.getMethod requires an HttpServletRequest object
-		{	
-			ClientData clientData = new ClientData();
-			//Client client = new Client();
-			String clientID = req.getParameter("clientId");
-			String clientPassword = req.getParameter("clientPassword");
-			
-			if(clientID != null && !clientID.trim().isEmpty() && clientPassword != null && !clientPassword.trim().isEmpty())
+
+		HttpServletRequest request = (HttpServletRequest)req;
+		HttpServletResponse response = (HttpServletResponse)resp;
+		try
+		{
+			HttpSession session = request.getSession();
+			UserSession usession = (UserSession)session.getAttribute("userSession");
+
+			if (null == usession)
 			{
-				try 
+				String username = request.getParameter("username");
+				String password = request.getParameter("password");
+				if ("POST".equals(request.getMethod()) && StringHelper.isNotNullOrEmpty(username) && StringHelper.isNotNullOrEmpty(password))
 				{
-					if(clientData.validateClient(clientID, clientPassword) != null)
+					SimaUser user = UserDAOFactory.getUserDAO().validateUserNamePassword(username, password);
+					if (user != null)
 					{
-						//redirect to context root
+						session.setAttribute("userSession", new UserSession(user));
+						response.sendRedirect(request.getContextPath() + "/"); // redirect to context root folder
+						return;
 					}
+					else
+						request.setAttribute("unsuccessfulLogin", Boolean.TRUE);
 				}
-				catch (SQLException e) 
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				chain.doFilter(req, resp); // continue on to login.jspx
+			}
+			else
+			{
+				response.sendRedirect(request.getContextPath() + "/"); // already logged in -- redirect to context root folder
+				return;
 			}
 		}
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
+		catch (SQLException sqle)
+		{
+			throw new ServletException(sqle);
+		}
 	}
-
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */

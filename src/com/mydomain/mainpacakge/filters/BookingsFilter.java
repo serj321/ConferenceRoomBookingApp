@@ -1,7 +1,6 @@
 package com.mydomain.mainpacakge.filters;
 
 import java.io.IOException;
-
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -10,11 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet Filter implementation class LogoutFilter
+ * Servlet Filter implementation class BookingsFilter
  */
 @WebFilter(
 		dispatcherTypes = {
@@ -23,15 +20,15 @@ import javax.servlet.http.HttpServletResponse;
 		}
 					, 
 		urlPatterns = { 
-				"/LogoutFilter", 
-				"/logout.jspx"
+				"/BookingsFilter", 
+				"/bookings.jspx"
 		})
-public class LogoutFilter implements Filter {
+public class BookingsFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public LogoutFilter() {
+    public BookingsFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -45,15 +42,12 @@ public class LogoutFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		// place your code here
 
-		HttpServletRequest request = (HttpServletRequest)req;
-		HttpServletResponse response = (HttpServletResponse)resp;
-		
-		request.getSession().invalidate();
-		response.sendRedirect(request.getContextPath() + "/");
+		// pass the request along the filter chain
+		chain.doFilter(request, response);
 	}
 
 	/**

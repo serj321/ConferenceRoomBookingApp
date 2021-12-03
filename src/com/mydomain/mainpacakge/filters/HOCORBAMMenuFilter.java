@@ -2,6 +2,8 @@ package com.mydomain.mainpacakge.filters;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,10 +15,14 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
 import ca.senecacollege.prg556.hocorba.bean.Client;
+import ca.senecacollege.prg556.hocorba.bean.ConferenceRoomBooking;
 import ca.senecacollege.prg556.hocorba.dao.ConferenceRoomBookingDAO;
 
 import com.mydomain.mainpackage.data.ClientData;
 import com.mydomain.mainpackage.data.ConferenceRoomBookingDAOFactory;
+import com.mydomain.mainpackage.data.ConferenceRoomBookingData;
+import com.mydomain.mainpackage.data.ConferenceRoomData;
+import com.mydomain.mainpackage.data.DataSourceFactory;
 
 /**
  * Servlet Filter implementation class HOCORBAMMenuFilter
@@ -48,14 +54,12 @@ public class HOCORBAMMenuFilter implements Filter {
 		try {
 			
 			HttpServletRequest request = (HttpServletRequest)req;
-			ClientData cd = new ClientData();
-			Client client = cd.getClient(1);
-			ConferenceRoomBookingDAO crBookingDAO = ConferenceRoomBookingDAOFactory.getConferenceRoomBookingDAO();
+			Client client = ((Client)request.getSession().getAttribute("clientSession"));
+			ConferenceRoomBookingData cfrData = new ConferenceRoomBookingData(DataSourceFactory.getDataSource());
+			List<ConferenceRoomBooking> conferenceRoomBookings = cfrData.getConferenceRoomBookings(client.getId());
+			request.setAttribute("bookingCount", conferenceRoomBookings.size());
 			
-			request.setAttribute("client", client);
-			request.setAttribute("bookingCount", crBookingDAO.getConferenceRoomBookings(client.getId()).size());
-			
-		} catch (SQLException e) {
+		} catch (SQLException | ParseException e) {
 			
 			// TODO Auto-generated catch block
 			e.printStackTrace();

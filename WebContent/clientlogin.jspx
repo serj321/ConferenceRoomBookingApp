@@ -16,17 +16,19 @@
 </head>
 <body>
 	<form action="clientlogin.jspx" method="post">
-		<h1>Welcome to the Hotel Conference Room Booking Application !</h1>
+		<c:choose>
+			<c:when test="${unsuccessfulLogin}">Your login is invalid.  Please try again.</c:when>
+			<c:otherwise>Welcome to SIMA.  Please login.</c:otherwise>
+		</c:choose>
 		
 		<label for="clientId">Enter your Client ID  </label>
-		<input type="textboox" id="clientId"> </input>
+		<input type="textboox" id="clientId" value=clientId > </input>
 		<br></br>
 		<label for="clientPassword">Enter your Password  </label>
 		<input type="password" id="clientPassword"> </input>
 		<br></br>
 		<button>Submit</button>
 		<br></br>
-		<h2>Your login attempt has failed ! Please try again</h2>
 	</form>
 		
 </body>

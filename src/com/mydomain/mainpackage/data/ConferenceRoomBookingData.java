@@ -101,7 +101,10 @@ public class ConferenceRoomBookingData {
 								rslt.getInt("capacity"),
 								rslt.getDate("start_date"), 
 								rslt.getInt("duration"), 
+							
+
 								rslt.getBigDecimal("rate").multiply(durationBig).divide(dividendSixty)
+
 								);
 					}
 				}

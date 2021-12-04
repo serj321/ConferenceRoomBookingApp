@@ -275,10 +275,10 @@
 				<td>$ ${conferenceRoom.getRate()}</td>
 				<td>
 					<form>
-						<input type="text" name="roomCode" value="${conferenceRoom.getCode()}"></input>
-						<input type="text" name="startingDate" value="${startingDate}"></input>
-						<input type="text" name="startingTime" value="${startTime}"></input>
-						<input type="text" name="duration" value="${duration}"></input>
+						<input type="hidden" name="roomCode" value="${conferenceRoom.getCode()}"></input>
+						<input type="hidden" name="startingDate" value="${startingDate}"></input>
+						<input type="hidden" name="startingTime" value="${startTime}"></input>
+						<input type="hidden" name="duration" value="${duration}"></input>
 						<input type="submit" value="Book Room"></input>
 					</form>
 				</td>

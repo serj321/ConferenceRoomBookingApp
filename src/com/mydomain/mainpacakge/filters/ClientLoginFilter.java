@@ -1,6 +1,7 @@
 package com.mydomain.mainpacakge.filters;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
 
 import javax.servlet.DispatcherType;

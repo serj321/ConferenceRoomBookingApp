@@ -6,6 +6,6 @@ public class ConferenceRoomDAOFactory
 {
 	public static ConferenceRoomDAO getConferenceRoomDAO()
 	{
-		return new ConferenceRoomDAO;
+		return new ConferenceRoomData();
 	}
 }

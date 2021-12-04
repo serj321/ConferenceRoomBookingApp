@@ -23,6 +23,7 @@ public class ConferenceRoomData implements ConferenceRoomDAO {
 	public ConferenceRoomData() {
 		// TODO Auto-generated constructor stub
 	}
+	
 	@SuppressWarnings("finally")
 	public List<ca.senecacollege.prg556.hocorba.bean.ConferenceRoom> findAvailableConferenceRooms(Date start, int duration, Integer minimumCapacity, BigDecimal maximumRate) throws SQLException
 	{

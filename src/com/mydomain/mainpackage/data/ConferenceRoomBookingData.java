@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +22,7 @@ public class ConferenceRoomBookingData {
 	
 	private DataSource ds;
 	
-	ConferenceRoomBookingData(DataSource ds){
+	public ConferenceRoomBookingData(DataSource ds){
 		setDs(ds);
 	}
 	
@@ -86,23 +85,23 @@ public class ConferenceRoomBookingData {
 	
 	public ConferenceRoomBooking getConferenceRoomBooking(int bookingCode) throws SQLException{
 		try (Connection conn = getDs().getConnection()){
-			try (PreparedStatement pstmt = conn.prepareStatement("SELECT client_id, room_code, start_date, duration FROM booking WHERE booking_code = ?")){
+			try (PreparedStatement pstmt = conn.prepareStatement("SELECT client_id, room_code, start_date, duration, capacity, rate FROM booking INNER JOIN conference_room ON booking.room_code = conference_room.code WHERE booking_code = ?")){
 				pstmt.setInt(1,  bookingCode);
 				try (ResultSet rslt = pstmt.executeQuery()){
 					if(rslt.next()){
-						ConferenceRoomData crData = new ConferenceRoomData();
-						ConferenceRoom cr = crData.getConferenceRoom(rslt.getString("room_code"));
+//						ConferenceRoomData crData = new ConferenceRoomData();
+//						ConferenceRoom cr = crData.getConferenceRoom(rslt.getString("room_code"));
 						BigDecimal durationBig = BigDecimal.valueOf(rslt.getInt("duration"));
 						BigDecimal dividendSixty = BigDecimal.valueOf(60);
 						
 						return new ConferenceRoomBooking( 
 								bookingCode, 
 								rslt.getString("room_code"), 
-								cr.getName(), 
-								cr.getCapacity(), 
+								rslt.getString("name"), 
+								rslt.getInt("capacity"),
 								rslt.getDate("start_date"), 
 								rslt.getInt("duration"), 
-								cr.getRate().multiply(durationBig).divide(dividendSixty)
+								rslt.getBigDecimal("rate").multiply(durationBig).divide(dividendSixty)
 								);
 					}
 				}
@@ -112,20 +111,25 @@ public class ConferenceRoomBookingData {
 	}
 	
 	public List<ConferenceRoomBooking> getConferenceRoomBookings (int clientId) throws SQLException, ParseException, ServletException{
-		try{
-			ConferenceRoomData crData = new ConferenceRoomData();
-			ConferenceRoom cr1 = crData.getConferenceRoom("111");
-			ConferenceRoom cr2 = crData.getConferenceRoom("222");
-			SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
-			Date date1 = formatter.parse("October 23, 2021");
-			Date date2 = formatter.parse("October 25, 2021");
-			List<ConferenceRoomBooking> crBookings = new ArrayList<ConferenceRoomBooking>();
-			crBookings.add(new ConferenceRoomBooking(1, cr1.getCode(), cr1.getName(), cr1.getCapacity(), date1, 90, BigDecimal.valueOf(150.00)));
-			crBookings.add(new ConferenceRoomBooking(2, cr2.getCode(), cr2.getName(), cr2.getCapacity(), date2, 120, BigDecimal.valueOf(100.00)));
-			return crBookings;
+		List<ConferenceRoomBooking> conferenceRoomBookings = new ArrayList<>();
+		try (Connection conn = getDs().getConnection()){
+			try (Statement stmt = conn.createStatement()){
+				try (ResultSet rslt = stmt.executeQuery("SELECT booking_code, room_code, start_date, duration, rate FROM booking INNER JOIN conference_room ON booking.room_code = conference_room.code WHERE client_id = ? ORDER BY start_date ASC, rate DESC")){
+					while(rslt.next()){
+						String roomCode = rslt.getString("room_code");
+						ConferenceRoomData crData = new ConferenceRoomData();
+						ConferenceRoom cr = crData.getConferenceRoom(roomCode);
+//						SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
+//						Date date = formatter.parse("October 23, 2021");
+						BigDecimal durationBig = BigDecimal.valueOf(rslt.getInt("duration"));
+						BigDecimal dividendSixty = BigDecimal.valueOf(60);
+						conferenceRoomBookings.add(new ConferenceRoomBooking(rslt.getInt("booking_code"), cr.getCode(), cr.getName(), cr.getCapacity(), rslt.getDate("start_date"), rslt.getInt("duration"), rslt.getBigDecimal("rate").multiply(durationBig).divide(dividendSixty)));
+					}
+				}
+			}
 		}
+		return conferenceRoomBookings;
 	}
-
 
 	
 }

@@ -20,12 +20,12 @@ import javax.servlet.http.HttpServletRequest;
 import ca.on.senecac.prg556.common.StringHelper;
 import ca.senecacollege.prg556.hocorba.bean.Client;
 import ca.senecacollege.prg556.hocorba.bean.ConferenceRoom;
-import ca.senecacollege.prg556.hocorba.dao.ConferenceRoomDAO;
 
 import com.mydomain.mainpackage.data.BadRequestException;
 import com.mydomain.mainpackage.data.ClientData;
 import com.mydomain.mainpackage.data.ConferenceRoomBookingData;
 import com.mydomain.mainpackage.data.ConferenceRoomData;
+import com.mydomain.mainpackage.data.DataSourceFactory;
 
 /**
  * Servlet Filter implementation class BookFilter
@@ -153,20 +153,18 @@ public class BookFilter implements Filter {
 					if(crData.getConferenceRoom(roomCode) == null){
 						throw new BadRequestException("Room ID is invalid");
 					} else{
-						ConferenceRoom cr = crData.getConferenceRoom(roomCode);
 						SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
 						long startTimeLong = Long.parseLong(startTime) * 60000L;
 						Date dateParam = formatter.parse(startingDate);
 						long startTimeCombined = (dateParam.getTime() + startTimeLong);
 						dateParam.setTime(startTimeCombined);
+						Client client = ((Client)request.getSession().getAttribute("clientSession"));
 						ClientData cd = new ClientData();
-						if(cd.getClient(1) == null){
+						if(cd.getClient(client.getId()) == null){
 							throw new BadRequestException("client ID is invalid");
 						} else{
-							Client client = cd.getClient(1);
-							ConferenceRoomBookingData crBookingData = new ConferenceRoomBookingData();
+							ConferenceRoomBookingData crBookingData = new ConferenceRoomBookingData(DataSourceFactory.getDataSource());
 							crBookingData.bookConferenceRoom(client.getId(), roomCode, dateParam, Integer.parseInt(duration));
-							
 						}
 					}
 				} catch (NumberFormatException e) {

@@ -17,8 +17,9 @@ import javax.sql.DataSource;
 
 import ca.senecacollege.prg556.hocorba.bean.ConferenceRoom;
 import ca.senecacollege.prg556.hocorba.bean.ConferenceRoomBooking;
+import ca.senecacollege.prg556.hocorba.dao.ConferenceRoomBookingDAO;
 
-public class ConferenceRoomBookingData {
+public class ConferenceRoomBookingData implements ConferenceRoomBookingDAO{
 	
 	private DataSource ds;
 	

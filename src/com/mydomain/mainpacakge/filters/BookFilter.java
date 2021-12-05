@@ -16,7 +16,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-
+import com.mydomain.mainpackage.data.*;
 import ca.on.senecac.prg556.common.StringHelper;
 import ca.senecacollege.prg556.hocorba.bean.Client;
 import ca.senecacollege.prg556.hocorba.bean.ConferenceRoom;
@@ -24,7 +24,6 @@ import ca.senecacollege.prg556.hocorba.bean.ConferenceRoom;
 import com.mydomain.mainpackage.data.BadRequestException;
 import com.mydomain.mainpackage.data.ClientData;
 import com.mydomain.mainpackage.data.ConferenceRoomBookingData;
-import com.mydomain.mainpackage.data.ConferenceRoomData;
 import com.mydomain.mainpackage.data.DataSourceFactory;
 
 /**
@@ -146,7 +145,8 @@ public class BookFilter implements Filter {
 			//Do this if the submit button was pressed NOT SURE HOW
 			if(roomCode == null || roomCode == ""){
 				throw new BadRequestException("date is invalid");
-			} else{
+			} else
+			{
 				ConferenceRoomData crData = new ConferenceRoomData();
 				
 				try {

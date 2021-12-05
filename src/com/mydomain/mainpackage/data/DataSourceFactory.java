@@ -1,7 +1,7 @@
 package com.mydomain.mainpackage.data;
 
-import com.sun.appserv.jdbc.DataSource;
-
+//import com.sun.appserv.jdbc.DataSource;
+import javax.sql.DataSource;
 public class DataSourceFactory {
 
 	private static DataSource dataSource;

@@ -1,11 +1,15 @@
 package com.mydomain.mainpackage.data;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
+import javax.sql.DataSource;
 
 import ca.senecacollege.prg556.hocorba.bean.Client;
 import ca.senecacollege.prg556.hocorba.dao.ClientDAO;
-
 import ca.senecacollege.prg556.hocorba.bean.Client;
 import ca.senecacollege.prg556.hocorba.dao.ClientDAO;
 
@@ -13,58 +17,55 @@ import ca.senecacollege.prg556.hocorba.dao.ClientDAO;
 
 public class ClientData implements ClientDAO
 {
-
+	private DataSource ds;
 	public ClientData() 
 	{
 		// TODO Auto-generated constructor stub
 	}
 	public Client getClient(int id) throws SQLException
 	{
-		int id1 = 1;
-		int id2 = 2;
-		int id3 = 3;
-
-		if(id == id1)
+		try (Connection conn = getDs().getConnection())
 		{
-			return new Client(id1,"Vishesh","Mendiratta");
+			try (PreparedStatement pstmt = conn.prepareStatement("SELECT id, first_name, last_name FROM client WHERE id = ?"))
+			{
+				pstmt.setInt(1, id);
+				try (ResultSet rslt = pstmt.executeQuery())
+				{
+					if (rslt.next())
+						return new Client(id, rslt.getString("first_name"), rslt.getString("last_name"));
+					else
+						return null;
+				}
+			}
 		}
-		else if(id == id2)
-		{
-			return new Client(id2, "Vedant", "Mendiratta");
-		}
-		else if(id == id3)
-		{
-			return new Client(id3,"Serj","Sililian");
-		}
-		else
-			return null;
 	
 	}
 	public Client validateClient(String username, String password) throws SQLException
 	{
-		String username1 = "vishesh_m";
-		String password1 = "vishesh_passwpord";
-
-		String username2 = "serj_s";
-		String password2 = "serj_password";
-
-		String username3 = "vedant_m";
-		String password3 = "vedant_p";
-		
-		if(username == username1 && password ==password1)
+		try (Connection conn = getDs().getConnection())
 		{
-			return (Client)getClient(1);
+			try (PreparedStatement pstmt = conn.prepareStatement("SELECT id, first_name, last_name FROM client WHERE username = ? AND password = ?"))
+			{
+				pstmt.setString(1,username);
+				pstmt.setString(2,password);
+				try (ResultSet rslt = pstmt.executeQuery())
+				{
+					if (rslt.next())
+						return new Client(rslt.getInt("id"), rslt.getString("first_name"), rslt.getString("last_name"));
+					else
+						return null;
+				}
+			}
 		}
-		else if(username == username2 && password ==password2)
-		{
-			return (Client)getClient(2);
-		}
-		else if(username == username3 && password ==password3)
-		{
-			return (Client)getClient(3);
-		}
-		else 
-			return null;
+	}
+	
+	private DataSource getDs()
+	{
+		return ds;
+	}
+	private void setDs(DataSource ds)
+	{
+		this.ds = ds;
 	}
 }
 

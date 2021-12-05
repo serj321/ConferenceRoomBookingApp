@@ -17,9 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import ca.on.senecac.prg556.common.StringHelper;
-import ca.on.senecac.prg556.sima.bean.SimaUser;
-import ca.on.senecac.prg556.sima.bean.UserSession;
-import ca.on.senecac.prg556.sima.data.UserDAOFactory;
 import ca.senecacollege.prg556.hocorba.bean.Client;
 import ca.senecacollege.prg556.hocorba.dao.ClientDAO;
 
@@ -68,7 +65,8 @@ public class ClientLoginFilter implements Filter {
 		{
 			HttpSession session = request.getSession();
 
-			
+			if (null == request.getSession().getAttribute("clientSession"))
+			{
 				//ClientDAOFactory clientDAOF;
 				ClientData clientData;
 				Client client;
@@ -79,18 +77,24 @@ public class ClientLoginFilter implements Filter {
 					client = ClientDAOFactory.getClientDAO().validateClient(username, password);
 					if (client != null)
 					{
-						//session.setAttribute("clientId", new UserSession(user));
+						session.setAttribute("clientSession", client);
 						response.sendRedirect(request.getContextPath() + "/"); // redirect to context root folder
-						response.sendRedirect(request.getContextPath() + "/"); // already logged in -- redirect to context root folder
 						return;
 					}
 					else
 						request.setAttribute("unsuccessfulLogin", Boolean.TRUE);
 						request.setAttribute("clientId", username);
+						chain.doFilter(req, resp);
 
 				}
-				chain.doFilter(req, resp); // continue on to login.jspx
-			
+				else
+					chain.doFilter(req, resp); // continue on to login.jspx
+			}
+			else
+			{
+				response.sendRedirect(request.getContextPath() + "/"); // already logged in -- redirect to context root folder
+				return;
+			}
 		}
 		catch (SQLException sqle)
 		{

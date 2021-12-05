@@ -16,13 +16,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.mydomain.mainpackage.data.BadRequestException;
 import com.mydomain.mainpackage.data.ClientData;
 import com.mydomain.mainpackage.data.ConferenceRoomBookingData;
 import com.mydomain.mainpackage.data.ConferenceRoomDAOFactory;
 
-import ca.on.senecac.prg556.sima.InvalidRequestException;
 
 /**
  * Servlet Filter implementation class BookingsFilter
@@ -61,29 +61,32 @@ public class BookingsFilter implements Filter {
 		// place your code here
 
 		HttpServletRequest request = (HttpServletRequest)req;
-		//check what this ca.on. shit has to be changed to somethingelse
-		//if (request.getAttribute("ca.on.senecac.prg556.common.exception") != null)
-			//throw new BadRequestException((Exception)request.getAttribute("ca.on.senecac.prg556.common.exception"));
 		
+		HttpSession session = request.getSession();
+
 		try
 		{
 			ConferenceRoomDAO dao = ConferenceRoomDAOFactory.getConferenceRoomDAO();
-			ConferenceRoomBookingData roomBooking;
+			ConferenceRoomBookingData roomBooking ;
 			ClientData clientData;
-			Client client;
 			if ("POST".equals(request.getMethod()))
-				throw new BadRequestException("Not a valid request");
-			int getBookingCode = Integer.parseInt(request.getParameter("bookingCode"));
-			if(getBookingCode < 0 )
 			{
-				throw new BadRequestException("Not a valid Booking Code	");
+				int getBookingCode = Integer.parseInt(request.getParameter("bookingCode"));
+				if(getBookingCode < 0 )
+				{
+					throw new BadRequestException("Not a valid Booking Code	");
+				}
+				else
+					roomBooking.cancelConferenceRoomBooking(getBookingCode);//  .cancelConferenceRoomBooking(getBookingCode);
+					roomBooking.getConferenceRoomBooking(getBookingCode);
+					Client client = ((Client)request.getSession().getAttribute("clientSession"));
+					List<ConferenceRoomBooking> crbList = roomBooking.getConferenceRoomBookings(client.getId());
+					request.setAttribute("crbList",crbList );
+					chain.doFilter(req, resp);
+					
 			}
-			else
-				roomBooking.cancelConferenceRoomBooking(getBookingCode);
-				roomBooking.getConferenceRoomBooking(getBookingCode);
-				client = clientData.getClient(1);
-				List<ConferenceRoomBooking> crbList = roomBooking.getConferenceRoomBookings(1);
-				request.setAttribute("crbList",crbList );
+			
+			
 		}
 		catch (IllegalArgumentException | NullPointerException e) // NumberFormatException is a child of IllegalArgumentException
 		{

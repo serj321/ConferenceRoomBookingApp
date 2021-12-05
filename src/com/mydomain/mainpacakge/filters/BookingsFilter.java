@@ -5,6 +5,7 @@ import ca.senecacollege.prg556.hocorba.dao.ConferenceRoomDAO;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.DispatcherType;
@@ -17,11 +18,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
 import com.mydomain.mainpackage.data.BadRequestException;
 import com.mydomain.mainpackage.data.ClientData;
 import com.mydomain.mainpackage.data.ConferenceRoomBookingData;
 import com.mydomain.mainpackage.data.ConferenceRoomDAOFactory;
+import com.mydomain.mainpackage.data.DataSourceFactory;
 
 
 /**
@@ -67,7 +70,7 @@ public class BookingsFilter implements Filter {
 		try
 		{
 			ConferenceRoomDAO dao = ConferenceRoomDAOFactory.getConferenceRoomDAO();
-			ConferenceRoomBookingData roomBooking ;
+			ConferenceRoomBookingData roomBooking = new ConferenceRoomBookingData(DataSourceFactory.getDataSource());
 			ClientData clientData;
 			if ("POST".equals(request.getMethod()))
 			{
@@ -95,7 +98,7 @@ public class BookingsFilter implements Filter {
 		catch (SQLException sqle)
 		{
 			throw new ServletException(sqle);
-		}
+		} 
 		// pass the request along the filter chain
 		chain.doFilter(req, resp);
 	}

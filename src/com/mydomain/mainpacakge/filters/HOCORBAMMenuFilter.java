@@ -53,7 +53,7 @@ public class HOCORBAMMenuFilter implements Filter {
 			List<ConferenceRoomBooking> conferenceRoomBookings = cfrData.getConferenceRoomBookings(client.getId());
 			request.setAttribute("bookingCount", conferenceRoomBookings.size());
 			
-		} catch (SQLException | ParseException e) {
+		} catch (SQLException e) {
 			
 			// TODO Auto-generated catch block
 			e.printStackTrace();

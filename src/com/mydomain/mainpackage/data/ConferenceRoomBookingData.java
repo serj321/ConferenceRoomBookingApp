@@ -114,7 +114,7 @@ public class ConferenceRoomBookingData implements ConferenceRoomBookingDAO{
 		return null;
 	}
 	
-	public List<ConferenceRoomBooking> getConferenceRoomBookings (int clientId) throws SQLException, ParseException, ServletException{
+	public List<ConferenceRoomBooking> getConferenceRoomBookings (int clientId) throws SQLException{
 		List<ConferenceRoomBooking> conferenceRoomBookings = new ArrayList<>();
 		try (Connection conn = getDs().getConnection()){
 			try (Statement stmt = conn.createStatement()){

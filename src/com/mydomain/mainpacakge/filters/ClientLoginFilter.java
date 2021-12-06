@@ -82,18 +82,27 @@ public class ClientLoginFilter implements Filter {
 						return;
 					}
 					else
+					{
 						request.setAttribute("unsuccessfulLogin", Boolean.TRUE);
 						request.setAttribute("clientId", username);
 						chain.doFilter(req, resp);
-
+					}
 				}
-				chain.doFilter(req, resp); // continue on to login.jspx
+				else
+				{
+					chain.doFilter(req, resp); // continue on to login.jspx
+				}
 			}
 			else
+			{						
+				response.sendRedirect(request.getContextPath() + "/"); // redirect to context root folder
+			}
+			
+			/*else
 			{
 				response.sendRedirect(request.getContextPath() + "/"); // already logged in -- redirect to context root folder
 				return;
-			}
+			}*/
 		}
 		catch (SQLException sqle)
 		{

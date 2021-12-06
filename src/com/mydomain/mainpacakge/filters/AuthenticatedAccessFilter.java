@@ -45,7 +45,7 @@ public class AuthenticatedAccessFilter implements Filter {
 		String uriLogin = request.getContextPath() + getLoginPage();
 
 		// pass the request along the filter chain
-		if (null == request.getSession().getAttribute("userSession")){
+		if (null == request.getSession().getAttribute("clientSession") && !uriLogin.equals(request.getRequestURI())){
 			((HttpServletResponse)resp).sendRedirect(uriLogin);
 		}
 		else{

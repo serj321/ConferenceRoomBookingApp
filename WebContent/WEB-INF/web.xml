@@ -11,7 +11,50 @@
     <exception-type>com.mydomain.mainpackage.data.BadRequestException</exception-type>
     <location>/badrequest.jspx</location>
   </error-page>  
-  
+  <filter>
+	<display-name>RedirectFilter</display-name>
+	<filter-name>RedirectFilter</filter-name>
+	<filter-class>ca.on.senecac.prg556.common.RedirectFilter</filter-class>
+	<init-param>
+	<description>URL to redirect or dispatch to</description>
+	<param-name>url</param-name>
+	<param-value>/bookings.jspx</param-value>
+	</init-param>
+	<init-param>
+	<description>Specifies to redirect (REDIRECT) or dispatch forward (DISPATCH)</description>
+	<param-name>method</param-name>
+	<param-value>DISPATCH</param-value>
+	</init-param>
+  </filter>
+  <filter>
+	<display-name>ClientLoginFilter</display-name>
+	<filter-name>ClientLoginFilter</filter-name>
+	<filter-class>com.mydomain.mainpackage.filters.ClientLoginFilter</filter-class>
+	</filter>
+  <filter-mapping>
+	<filter-name>ClientLoginFilter</filter-name>
+    <url-pattern>/clientlogin.jspx</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  <filter>
+	<display-name>AuthenticatedAccessFilter</display-name>
+	<filter-name>AuthenticatedAccessFilter</filter-name>
+	<filter-class>com.mydomain.mainpackage.filters.AuthenticatedAccessFilter</filter-class>
+	<init-param>
+      <description></description>
+      <param-name>login</param-name>
+      <param-value>/clientlogin.jspx</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>AuthenticatedAccessFilter</filter-name>
+    <url-pattern>/</url-pattern>
+    <url-pattern>*.jspx</url-pattern>
+  </filter-mapping>
+
+
+	
 	<filter>
     	<display-name>BookFilter</display-name>
     	<filter-name>BookFilter</filter-name>

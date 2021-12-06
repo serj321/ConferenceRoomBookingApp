@@ -87,8 +87,7 @@ public class ClientLoginFilter implements Filter {
 						chain.doFilter(req, resp);
 
 				}
-				else
-					chain.doFilter(req, resp); // continue on to login.jspx
+				chain.doFilter(req, resp); // continue on to login.jspx
 			}
 			else
 			{

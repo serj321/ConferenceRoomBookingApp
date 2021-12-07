@@ -1,7 +1,6 @@
 package com.mydomain.mainpacakge.filters;
 
 import java.io.IOException;
-
 import java.sql.SQLException;
 
 import javax.servlet.DispatcherType;
@@ -65,12 +64,12 @@ public class ClientLoginFilter implements Filter {
 
 			if (null == request.getSession().getAttribute("clientSession"))
 			{
-				Client client;
+				
 				String username = request.getParameter("clientId");
 				String password = request.getParameter("clientPassword");
 				if ("POST".equals(request.getMethod()) && StringHelper.isNotNullOrEmpty(username) && StringHelper.isNotNullOrEmpty(password))
 				{
-					client = ClientDAOFactory.getClientDAO().validateClient(username, password);
+					Client client = ClientDAOFactory.getClientDAO().validateClient(username, password);
 					if (client != null)
 					{
 						session.setAttribute("clientSession", client);

@@ -74,7 +74,7 @@ public class ClientLoginFilter implements Filter {
 					if (client != null)
 					{
 						session.setAttribute("clientSession", client);
-						response.sendRedirect(request.getContextPath() + "/"); // redirect to context root folder
+						response.sendRedirect(request.getContextPath() + "/bookings.jspx"); // redirect to context root folder
 						return;
 					}
 					else

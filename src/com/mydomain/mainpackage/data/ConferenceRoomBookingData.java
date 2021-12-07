@@ -118,16 +118,21 @@ public class ConferenceRoomBookingData implements ConferenceRoomBookingDAO{
 		List<ConferenceRoomBooking> conferenceRoomBookings = new ArrayList<>();
 		try (Connection conn = getDs().getConnection()){
 			try (Statement stmt = conn.createStatement()){
-				try (ResultSet rslt = stmt.executeQuery("SELECT booking_code, room_code, start_date, duration, rate FROM booking INNER JOIN conference_room ON booking.room_code = conference_room.code WHERE client_id = ? ORDER BY start_date ASC, rate DESC")){
-					while(rslt.next()){
-						String roomCode = rslt.getString("room_code");
-						ConferenceRoomData crData = new ConferenceRoomData();
-						ConferenceRoom cr = crData.getConferenceRoom(roomCode);
-//						SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
-//						Date date = formatter.parse("October 23, 2021");
-						BigDecimal durationBig = BigDecimal.valueOf(rslt.getInt("duration"));
-						BigDecimal dividendSixty = BigDecimal.valueOf(60);
-						conferenceRoomBookings.add(new ConferenceRoomBooking(rslt.getInt("booking_code"), cr.getCode(), cr.getName(), cr.getCapacity(), rslt.getDate("start_date"), rslt.getInt("duration"), rslt.getBigDecimal("rate").multiply(durationBig).divide(dividendSixty)));
+				try (PreparedStatement pstmt = conn.prepareStatement("SELECT booking_code, room_code, start_date, duration, rate FROM booking INNER JOIN conference_room ON booking.room_code = conference_room.code WHERE client_id = ? ORDER BY start_date ASC, rate DESC")){
+					pstmt.setInt(1, clientId);
+					try(ResultSet rslt = pstmt.executeQuery())
+					{
+						while(rslt.next())
+						{
+							String roomCode = rslt.getString("room_code");
+							ConferenceRoomData crData = new ConferenceRoomData();
+							ConferenceRoom cr = crData.getConferenceRoom(roomCode);
+//							SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
+//							Date date = formatter.parse("October 23, 2021");
+							BigDecimal durationBig = BigDecimal.valueOf(rslt.getInt("duration"));
+							BigDecimal dividendSixty = BigDecimal.valueOf(60);
+							conferenceRoomBookings.add(new ConferenceRoomBooking(rslt.getInt("booking_code"), cr.getCode(), cr.getName(), cr.getCapacity(), rslt.getDate("start_date"), rslt.getInt("duration"), rslt.getBigDecimal("rate").multiply(durationBig).divide(dividendSixty)));
+						}
 					}
 				}
 			}

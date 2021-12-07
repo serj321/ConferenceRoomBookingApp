@@ -69,9 +69,9 @@ public class BookingsFilter implements Filter {
 
 		try
 		{
+			
 			ConferenceRoomDAO dao = ConferenceRoomDAOFactory.getConferenceRoomDAO();
 			ConferenceRoomBookingData roomBooking = new ConferenceRoomBookingData(DataSourceFactory.getDataSource());
-			ClientData clientData;
 			if ("POST".equals(request.getMethod()))
 			{
 				int getBookingCode = Integer.parseInt(request.getParameter("bookingCode"));
@@ -82,12 +82,17 @@ public class BookingsFilter implements Filter {
 				else
 					roomBooking.cancelConferenceRoomBooking(getBookingCode);//  .cancelConferenceRoomBooking(getBookingCode);
 					roomBooking.getConferenceRoomBooking(getBookingCode);
-					Client client = ((Client)request.getSession().getAttribute("clientSession"));
-					List<ConferenceRoomBooking> crbList = roomBooking.getConferenceRoomBookings(client.getId());
-					request.setAttribute("crbList",crbList );
-					chain.doFilter(req, resp);
-					
 			}
+			else
+			{
+				Client client = ((Client)request.getSession().getAttribute("clientSession"));
+				List<ConferenceRoomBooking> crbList = roomBooking.getConferenceRoomBookings(client.getId());
+				request.setAttribute("crbList",crbList );
+				chain.doFilter(req, resp);
+			}
+				
+					
+			
 			
 			
 		}

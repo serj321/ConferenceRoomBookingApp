@@ -18,10 +18,8 @@ import javax.servlet.http.HttpSession;
 
 import ca.on.senecac.prg556.common.StringHelper;
 import ca.senecacollege.prg556.hocorba.bean.Client;
-import ca.senecacollege.prg556.hocorba.dao.ClientDAO;
 
 import com.mydomain.mainpackage.data.ClientDAOFactory;
-import com.mydomain.mainpackage.data.ClientData;
 
 /**
  * Servlet Filter implementation class ClientLoginFilter
@@ -67,8 +65,6 @@ public class ClientLoginFilter implements Filter {
 
 			if (null == request.getSession().getAttribute("clientSession"))
 			{
-				//ClientDAOFactory clientDAOF;
-				ClientData clientData;
 				Client client;
 				String username = request.getParameter("clientId");
 				String password = request.getParameter("clientPassword");
@@ -96,7 +92,8 @@ public class ClientLoginFilter implements Filter {
 			else
 			{						
 				response.sendRedirect(request.getContextPath() + "/"); // redirect to context root folder
-			}
+				return;
+			}	
 			
 			/*else
 			{

@@ -42,8 +42,7 @@ public class ClientData implements ClientDAO
 	}
 	public Client validateClient(String username, String password) throws SQLException
 	{
-		try (Connection conn = getDs().getConnection())
-		{
+		try (Connection conn = getDs().getConnection()){
 			try (PreparedStatement pstmt = conn.prepareStatement("SELECT id, first_name, last_name FROM client WHERE username = ? AND password = ?"))
 			{
 				pstmt.setString(1,username);
@@ -55,17 +54,17 @@ public class ClientData implements ClientDAO
 					else
 						return null;
 				}
-			}
+			}		
 		}
 	}
 	
 	private DataSource getDs()
 	{
-		return ds;
+		return DataSourceFactory.getDataSource();
 	}
-	private void setDs(DataSource ds)
-	{
-		this.ds = ds;
-	}
+//	private void setDs(DataSource ds)
+//	{
+//		this.ds = ds;
+//	}
 }
 

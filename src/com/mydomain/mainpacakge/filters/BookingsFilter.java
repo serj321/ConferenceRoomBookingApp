@@ -87,7 +87,8 @@ public class BookingsFilter implements Filter {
 			{
 				Client client = ((Client)request.getSession().getAttribute("clientSession"));
 				List<ConferenceRoomBooking> crbList = roomBooking.getConferenceRoomBookings(client.getId());
-				request.setAttribute("crbList",crbList );
+				//request.setAttribute("crbList",crbList );
+				request.setAttribute("crbList", crbList.toArray(new String[0]));
 				chain.doFilter(req, resp);
 			}
 				

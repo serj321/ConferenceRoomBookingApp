@@ -16,7 +16,7 @@
 <title>Hotel Conference Room</title>
 </head>
 <body>
-<h2 id="noBookings">The client currently has no hotel conference room bookings.</h2>
+
 		<h2>Your conference room bookings: </h2>
 		<section class="space-between">
   			<div class="flex-item heading">Room name</div>
@@ -27,46 +27,28 @@
  			<div class="flex-item heading">Booking cost</div>
  			<div class="flex-item heading">Cancel Booking</div>
  			<div class="flex-item hide-item">Booking code</div>			
+ 			<%-- <input type="hidden" name="cc" value="${fn:join(crbList,',')}" /> --%>
 		</section>
-		<c:forEach var="conferenceRoom" items="${crbList}" varStatus="status">
-			<form action="bookings.jspx" method="post">
-			<section class="space-between">
-  				<div class="flex-item">${conferenceRoom.getCode()}</div>
-  				<div class="flex-item">${conferneceRoom.getCapacity()}</div>
-  				<div class="flex-item">${conferneceRoom.getStartDate()}</div>
- 				<div class="flex-item"></div>
- 				<div class="flex-item">${conferneceRoom.getDuration()}</div>
- 				<div class="flex-item">$1000.00</div>
- 				<div class="flex-item hide-item" id="bookingCode">2543</div>
- 				<button>Cancel booking</button>
- 				<input type="hidden">${conferenceRoom.getCode()}</input>
-			</section>
-			</form>
-		</c:forEach>
-		<form action="bookings.jspx" method="post">
-		<section class="space-between">
-  			<div class="flex-item">Room #33</div>
-  			<div class="flex-item">15</div>
-  			<div class="flex-item">12/24/21</div>
- 			<div class="flex-item">10:00 AM</div>
- 			<div class="flex-item">3:00 Hours</div>
- 			<div class="flex-item">$1000.00</div>
- 			<div class="flex-item hide-item" id="bookingCode">2543</div>
- 			<button>Cancel booking</button>
-		</section>
-		</form>
-		<form action="bookings.jspx" method="post">
-		<section class="space-between">
-  			<div class="flex-item">Room #213</div>
-  			<div class="flex-item">10</div>
-  			<div class="flex-item">12/28/21</div>
- 			<div class="flex-item">11:30 AM</div>
- 			<div class="flex-item">3:00 Hours</div>
- 			<div class="flex-item">$750.00</div>
- 			<div class="flex-item hide-item" id="bookingCode">2516</div>
- 			<button>Cancel booking</button>	
-		</section>
-		</form>
+		<c:if test="${not empty conferenceRoom.crbList}">
+			<c:forEach var="conferenceRoom" items="${crbList}" varStatus="status">
+				<form action="bookings.jspx" method="post">
+				<section class="space-between">
+  					<div class="flex-item">${conferenceRoom.getCode()}</div>
+  					<div class="flex-item">${conferneceRoom.getCapacity()}</div>
+  					<div class="flex-item">${conferneceRoom.getStartDate()}</div>
+ 					<div class="flex-item"></div>
+ 					<div class="flex-item">${conferneceRoom.getDuration()}</div>
+ 					<div class="flex-item">$1000.00</div>
+ 					<div class="flex-item hide-item" id="bookingCode">2543</div>
+ 					<button>Cancel booking</button>
+ 					<input type="hidden">${conferenceRoom.getCode()}</input>
+				</section>
+				</form>
+			</c:forEach>
+		</c:if>
+		<c:if test="${empty conferenceRoom.crbList}">
+			<h2 id="noBookings">The client currently has no hotel conference room bookings.</h2>
+		</c:if>
 		<jsp:include page="hocorbamenu.jspx" /> 
 		
 </body>

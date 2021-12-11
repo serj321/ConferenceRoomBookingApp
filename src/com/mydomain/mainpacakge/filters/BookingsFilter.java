@@ -77,25 +77,19 @@ public class BookingsFilter implements Filter {
 				}
 				else
 					roomBooking.cancelConferenceRoomBooking(getBookingCode);//  .cancelConferenceRoomBooking(getBookingCode);
-					roomBooking.getConferenceRoomBooking(getBookingCode);
+					//roomBooking.getConferenceRoomBooking(getBookingCode);
 			}
-			else
-			{
+			
 				Client client = ((Client)session.getAttribute("clientSession"));
 				try{
 					List<ConferenceRoomBooking> crbList = roomBooking.getConferenceRoomBookings(client.getId());
 					request.setAttribute("crbList",crbList );
 					chain.doFilter(req, resp);
-				} catch(SQLException e){
+				} catch(SQLException e)
+				{
 					
 				}
 
-			}
-				
-					
-			
-			
-			
 		}
 		catch (IllegalArgumentException | NullPointerException e) // NumberFormatException is a child of IllegalArgumentException
 		{
@@ -106,7 +100,6 @@ public class BookingsFilter implements Filter {
 			throw new ServletException(sqle);
 		} 
 		// pass the request along the filter chain
-		chain.doFilter(req, resp);
 	}
 
 	/**

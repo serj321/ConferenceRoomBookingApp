@@ -53,7 +53,18 @@
     <url-pattern>*.jspx</url-pattern>
   </filter-mapping>
 
-
+	<filter>
+    	<display-name>BookingsFilter</display-name>
+   		<filter-name>BookingsFilter</filter-name>
+    	<filter-class>com.mydomain.mainpackage.filters.BookingsFilter</filter-class>
+  	</filter>
+  	<filter-mapping>
+    	<filter-name>BookingsFilter</filter-name>
+    	<url-pattern>/bookings.jspx</url-pattern>
+    	<dispatcher>REQUEST</dispatcher>
+    	<dispatcher>FORWARD</dispatcher>
+  	</filter-mapping>
+  	
 	
 	<filter>
     	<display-name>BookFilter</display-name>
@@ -66,17 +77,7 @@
     	<dispatcher>REQUEST</dispatcher>
     	<dispatcher>FORWARD</dispatcher>
   	</filter-mapping>
-  	<filter>
-    	<display-name>BookingsFilter</display-name>
-   		<filter-name>BookingsFilter</filter-name>
-    	<filter-class>com.mydomain.mainpackage.filters.BookingsFilter</filter-class>
-  	</filter>
-  	<filter-mapping>
-    	<filter-name>BookingsFilter</filter-name>
-    	<url-pattern>/bookings.jspx</url-pattern>
-    	<dispatcher>REQUEST</dispatcher>
-    	<dispatcher>FORWARD</dispatcher>
-  	</filter-mapping>
+
   	
     <filter>
     	<display-name>HOCORBAMMenuFilter</display-name>

@@ -5,11 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.servlet.ServletException;
 import javax.sql.DataSource;
-
-import ca.senecacollege.prg556.hocorba.bean.Client;
-import ca.senecacollege.prg556.hocorba.dao.ClientDAO;
 import ca.senecacollege.prg556.hocorba.bean.Client;
 import ca.senecacollege.prg556.hocorba.dao.ClientDAO;
 

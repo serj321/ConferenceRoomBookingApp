@@ -1,11 +1,10 @@
 package com.mydomain.mainpacakge.filters;
+import ca.on.senecac.prg556.common.StringHelper;
 import ca.senecacollege.prg556.hocorba.bean.Client;
 import ca.senecacollege.prg556.hocorba.bean.ConferenceRoomBooking;
-import ca.senecacollege.prg556.hocorba.dao.ConferenceRoomDAO;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.DispatcherType;
@@ -18,12 +17,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
 
 import com.mydomain.mainpackage.data.BadRequestException;
-import com.mydomain.mainpackage.data.ClientData;
 import com.mydomain.mainpackage.data.ConferenceRoomBookingData;
-import com.mydomain.mainpackage.data.ConferenceRoomDAOFactory;
 import com.mydomain.mainpackage.data.DataSourceFactory;
 
 
@@ -70,9 +66,9 @@ public class BookingsFilter implements Filter {
 		try
 		{
 			
-			ConferenceRoomDAO dao = ConferenceRoomDAOFactory.getConferenceRoomDAO();
+			// ConferenceRoomDAO dao = ConferenceRoomDAOFactory.getConferenceRoomDAO();
 			ConferenceRoomBookingData roomBooking = new ConferenceRoomBookingData(DataSourceFactory.getDataSource());
-			if ("POST".equals(request.getMethod()))
+			if ("POST".equals(request.getMethod()) && StringHelper.isNotNullOrEmpty(request.getParameter("cancel-booking-clicked") ))
 			{
 				int getBookingCode = Integer.parseInt(request.getParameter("bookingCode"));
 				if(getBookingCode < 0 )
@@ -85,11 +81,15 @@ public class BookingsFilter implements Filter {
 			}
 			else
 			{
-				Client client = ((Client)request.getSession().getAttribute("clientSession"));
-				List<ConferenceRoomBooking> crbList = roomBooking.getConferenceRoomBookings(client.getId());
-				//request.setAttribute("crbList",crbList );
-				request.setAttribute("crbList", crbList.toArray(new String[0]));
-				chain.doFilter(req, resp);
+				Client client = ((Client)session.getAttribute("clientSession"));
+				try{
+					List<ConferenceRoomBooking> crbList = roomBooking.getConferenceRoomBookings(client.getId());
+					request.setAttribute("crbList",crbList );
+					chain.doFilter(req, resp);
+				} catch(SQLException e){
+					
+				}
+
 			}
 				
 					

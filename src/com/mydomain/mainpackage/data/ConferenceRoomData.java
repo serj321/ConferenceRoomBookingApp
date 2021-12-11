@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 
 
+
 import javax.servlet.ServletException;
 import javax.sql.DataSource;
 
@@ -26,6 +27,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import ca.on.senecac.prg556.common.StringHelper;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,6 +41,7 @@ import javax.sql.DataSource;
 import com.sun.jmx.snmp.Timestamp;
 
 
+
 import java.sql.Connection;
 
 
@@ -49,7 +52,7 @@ import java.sql.Connection;
 	
 	ConferenceRoomData(DataSource ds)
 	{
-		setDs(ds);
+//		setDs(ds);
 	}
 	
 	public ConferenceRoomData() {
@@ -63,50 +66,55 @@ import java.sql.Connection;
 		
 		java.sql.Date sqlDate = new java.sql.Date(start.getTime());
 		java.sql.Date sqlEndDate = new java.sql.Date(start.getTime() + duration*60000L);
-		try (Connection conn = getDs().getConnection())
-		{
-			try (Statement stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE))
+		try{
+			try (Connection conn = getDs().getConnection())
 			{
-				if(minimumCapacity != null)
+				try (Statement stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE))
 				{
-					if(maximumRate != null)
+					if(minimumCapacity != null)
 					{
-						try (PreparedStatement pstmt = conn.prepareStatement("SELECT code, name, capacity, rate FROM conference_room WHERE code NOT IN (SELECT room_code FROM booking WHERE ? < DATEADD(minute, duration, start_date) AND end ? > start_date), capacity >= ? AND rate <= ? ORDER BY rate ASC, capacity DESC"))
+						if(maximumRate != null)
 						{
-							pstmt.setDate(1, sqlDate);
-							pstmt.setDate(2, sqlEndDate);
-							pstmt.setInt(3,minimumCapacity);
-							pstmt.setBigDecimal(4,maximumRate);
-							try(ResultSet rslt = pstmt.executeQuery())
+							try (PreparedStatement pstmt = conn.prepareStatement("SELECT code, name, capacity, rate FROM conference_room WHERE code NOT IN (SELECT room_code FROM booking WHERE ? < DATEADD(minute, duration, start_date) AND end ? > start_date), capacity >= ? AND rate <= ? ORDER BY rate ASC, capacity DESC"))
 							{
-								while(rslt.next())
+								pstmt.setDate(1, sqlDate);
+								pstmt.setDate(2, sqlEndDate);
+								pstmt.setInt(3,minimumCapacity);
+								pstmt.setBigDecimal(4,maximumRate);
+								try(ResultSet rslt = pstmt.executeQuery())
 								{
-									String roomCode = rslt.getString("room_code");
-									ConferenceRoomData crData = new ConferenceRoomData();
-									//ConferenceRoom cr = crData.getConferenceRoom(roomCode);
-									
-									rooms.add(new ConferenceRoom(rslt.getString("code"),
-											  rslt.getString("name"),
-								              rslt.getInt("capacity"),
-								              rslt.getBigDecimal("rate")));
+									while(rslt.next())
+									{
+										String roomCode = rslt.getString("room_code");
+										ConferenceRoomData crData = new ConferenceRoomData();
+										//ConferenceRoom cr = crData.getConferenceRoom(roomCode);
+										
+										rooms.add(new ConferenceRoom(rslt.getString("code"),
+												  rslt.getString("name"),
+									              rslt.getInt("capacity"),
+									              rslt.getBigDecimal("rate")));
+									}
 								}
-							}
-							
-							catch(SQLException sqle)
-							{
-								throw new ServletException(sqle);
-							}
-							finally
-							{
-								return rooms;
-							}
-						}		
+								
+								catch(SQLException sqle)
+								{
+									throw new ServletException(sqle);
+								}
+								finally
+								{
+									return rooms;
+								}
+							}		
+						}
+						return rooms;
 					}
 					return rooms;
 				}
-				return rooms;
 			}
+		} catch(Exception e){
+			return rooms;
 		}
+		
 	}
 	public ConferenceRoom getConferenceRoom(String roomCode) throws SQLException
 	{
@@ -132,10 +140,10 @@ import java.sql.Connection;
 	
 	private DataSource getDs()
 	{
-		return ds;
+		return DataSourceFactory.getDataSource();
 	}
-	private void setDs(DataSource ds)
-	{
-		this.ds = ds;
-	}
+//	private void setDs(DataSource ds)
+//	{
+//		this.ds = ds;
+//	}
 }

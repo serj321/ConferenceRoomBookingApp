@@ -79,17 +79,15 @@ public class BookingsFilter implements Filter {
 					roomBooking.cancelConferenceRoomBooking(getBookingCode);//  .cancelConferenceRoomBooking(getBookingCode);
 					//roomBooking.getConferenceRoomBooking(getBookingCode);
 			}
-			
-				Client client = ((Client)session.getAttribute("clientSession"));
-				try{
-					List<ConferenceRoomBooking> crbList = roomBooking.getConferenceRoomBookings(client.getId());
-					request.setAttribute("crbList",crbList );
-					chain.doFilter(req, resp);
-				} catch(SQLException e)
-				{
+			Client client = ((Client)session.getAttribute("clientSession"));
+			try{
+				List<ConferenceRoomBooking> crbList = roomBooking.getConferenceRoomBookings(client.getId());
+				request.setAttribute("crbList",crbList );
+				chain.doFilter(req, resp);
+			} catch(SQLException e)
+			{
 					
-				}
-
+			}
 		}
 		catch (IllegalArgumentException | NullPointerException e) // NumberFormatException is a child of IllegalArgumentException
 		{

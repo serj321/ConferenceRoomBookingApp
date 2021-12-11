@@ -141,77 +141,84 @@ public class BookFilter implements Filter {
 			}
 			
 			//Room Code set and check
-			String roomCode = request.getParameter("roomCode");
-			//Do this if the submit button was pressed NOT SURE HOW
-			if(roomCode == null || roomCode == ""){
-				throw new BadRequestException("date is invalid");
-			} else
+			
+			//Do this if the submit button was pressed
+			if (StringHelper.isNotNullOrEmpty(request.getParameter("book-room-clicked")))
 			{
-				ConferenceRoomData crData = new ConferenceRoomData();
-				
-				try {
-					if(crData.getConferenceRoom(roomCode) == null){
-						throw new BadRequestException("Room ID is invalid");
-					} else{
-						SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
-						long startTimeLong = Long.parseLong(startTime) * 60000L;
-						Date dateParam = formatter.parse(startingDate);
-						long startTimeCombined = (dateParam.getTime() + startTimeLong);
-						dateParam.setTime(startTimeCombined);
-						Client client = ((Client)request.getSession().getAttribute("clientSession"));
-						ClientData cd = new ClientData();
-						if(cd.getClient(client.getId()) == null){
-							throw new BadRequestException("client ID is invalid");
-						} else{
-							ConferenceRoomBookingData crBookingData = new ConferenceRoomBookingData(DataSourceFactory.getDataSource());
-							crBookingData.bookConferenceRoom(client.getId(), roomCode, dateParam, Integer.parseInt(duration));
-						}
-					}
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			
-			//Otherwise do this
-			
-			if( !startDateNotValid && !capacityNotValid && !maxRateNotValid ){
-				ConferenceRoomData crData = new ConferenceRoomData();
-				SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
-				long startTimeLong = Long.parseLong(startTime) * 60000L;
-				Date dateParam;
-				try {
-					dateParam = formatter.parse(startingDate);
-					long startTimeCombined = (dateParam.getTime() + startTimeLong);
-					dateParam.setTime(startTimeCombined);
-					
-					double maxRateDouble = Double.valueOf(maxRate);
-					BigDecimal maxRateBig = BigDecimal.valueOf(maxRateDouble);
+				String roomCode = request.getParameter("roomCode");
+				if(roomCode == null || roomCode == ""){
+					throw new BadRequestException("date is invalid");
+				} else
+				{
+					ConferenceRoomData crData = new ConferenceRoomData();
 					
 					try {
-						List<ConferenceRoom> crs = crData.findAvailableConferenceRooms(
-								dateParam, 
-								Integer.parseInt(duration), 
-								(StringHelper.isNullOrEmpty(capacity)) ? null : Integer.parseInt(capacity), 
-								(StringHelper.isNullOrEmpty(maxRate)) ? null : maxRateBig 
-								);
-						request.setAttribute("conferenceRooms", crs);
-					} catch (NumberFormatException | SQLException e) {
+						if(crData.getConferenceRoom(roomCode) == null){
+							throw new BadRequestException("Room ID is invalid");
+						} else{
+							SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
+							long startTimeLong = Long.parseLong(startTime) * 60000L;
+							Date dateParam = formatter.parse(startingDate);
+							long startTimeCombined = (dateParam.getTime() + startTimeLong);
+							dateParam.setTime(startTimeCombined);
+							Client client = ((Client)request.getSession().getAttribute("clientSession"));
+							ClientData cd = new ClientData();
+							if(cd.getClient(client.getId()) == null){
+								throw new BadRequestException("client ID is invalid");
+							} else{
+								ConferenceRoomBookingData crBookingData = new ConferenceRoomBookingData(DataSourceFactory.getDataSource());
+								crBookingData.bookConferenceRoom(client.getId(), roomCode, dateParam, Integer.parseInt(duration));
+							}
+						}
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
-
 			}
+			//Otherwise do this
+			else{
+				if( !startDateNotValid && !capacityNotValid && !maxRateNotValid ){
+					ConferenceRoomData crData = new ConferenceRoomData();
+					SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
+					long startTimeLong = Long.parseLong(startTime) * 60000L;
+					Date dateParam;
+					try {
+						dateParam = formatter.parse(startingDate);
+						long startTimeCombined = (dateParam.getTime() + startTimeLong);
+						dateParam.setTime(startTimeCombined);
+						
+						double maxRateDouble = Double.valueOf(maxRate);
+						BigDecimal maxRateBig = BigDecimal.valueOf(maxRateDouble);
+						
+						try {
+							List<ConferenceRoom> crs = crData.findAvailableConferenceRooms(
+									dateParam, 
+									Integer.parseInt(duration), 
+									(StringHelper.isNullOrEmpty(capacity)) ? null : Integer.parseInt(capacity), 
+									(StringHelper.isNullOrEmpty(maxRate)) ? null : maxRateBig 
+									);
+							request.setAttribute("conferenceRooms", crs);
+						} catch (NumberFormatException | SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+				}
+			}
+			
+			
+
 
 		}
 		

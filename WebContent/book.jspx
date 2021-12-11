@@ -264,7 +264,7 @@
 						<input type="text" name="startingDate" value="November 03, 2021"></input>
 						<input type="text" name="startingTime" value="105"></input>
 						<input type="text" name="duration" value="60"></input>
-						<input type="submit" value="Book Room"></input>
+						<input type="submit" value="Book Room" name="book-room-clicked"></input>
 					</form>
 				</td>
 			</tr>

@@ -38,7 +38,7 @@
  				<div class="flex-item">${conferneceRoom.getDuration()}</div>
  				<div class="flex-item">$1000.00</div>
  				<div class="flex-item hide-item" id="bookingCode">2543</div>
- 				<button>Cancel booking</button>
+ 				<button type="submit" name="cancel-booking-clicked">Cancel booking</button>
  				<input type="hidden">${conferenceRoom.getCode()}</input>
 			</section>
 			</form>

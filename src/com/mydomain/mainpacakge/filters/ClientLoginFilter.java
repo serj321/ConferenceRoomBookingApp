@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import ca.on.senecac.prg556.common.StringHelper;
 import ca.senecacollege.prg556.hocorba.bean.Client;
+import ca.senecacollege.prg556.hocorba.dao.ClientDAO;
 
 import com.mydomain.mainpackage.data.ClientDAOFactory;
 
@@ -69,11 +70,15 @@ public class ClientLoginFilter implements Filter {
 				String password = request.getParameter("clientPassword");
 				if ("POST".equals(request.getMethod()) && StringHelper.isNotNullOrEmpty(username) && StringHelper.isNotNullOrEmpty(password))
 				{
-					Client client = ClientDAOFactory.getClientDAO().validateClient(username, password);
+					ClientDAO clientDAOObj = ClientDAOFactory.getClientDAO();
+					
+					Client client = clientDAOObj.validateClient(username, password);
+					
 					if (client != null)
 					{
 						session.setAttribute("clientSession", client);
 						response.sendRedirect(request.getContextPath() + "/bookings.jspx"); // redirect to context root folder
+						//request.getContextPath() + 
 						return;
 					}
 					else
@@ -100,7 +105,7 @@ public class ClientLoginFilter implements Filter {
 				return;
 			}*/
 		}
-		catch (SQLException sqle)
+		catch (Exception sqle)  //SQLException sqle)
 		{
 			throw new ServletException(sqle);
 		}

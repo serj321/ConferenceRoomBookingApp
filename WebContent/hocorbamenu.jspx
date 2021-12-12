@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
     <jsp:directive.page language="java"/>
+    <!-- Author: Serj Sililian -->
 	<h2>Book a New Conference Room</h2>
 	<ul class="navbar">
 		<li><a class="menu-text">${clientSession.getFirstName()} ${clientSession.getLastName()}</a></li>

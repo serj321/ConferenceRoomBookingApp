@@ -1,3 +1,4 @@
+// Author: Serj Sililian
 package com.mydomain.mainpackage.data;
 
 //import com.sun.appserv.jdbc.DataSource;

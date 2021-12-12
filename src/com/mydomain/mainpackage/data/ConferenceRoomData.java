@@ -75,7 +75,7 @@ import java.sql.Connection;
 					{
 						if(maximumRate != null)
 						{
-							try (PreparedStatement pstmt = conn.prepareStatement("SELECT code, name, capacity, rate FROM conference_room WHERE code NOT IN (SELECT room_code FROM booking WHERE ? < DATEADD(minute, duration, start_date) AND end ? > start_date), capacity >= ? AND rate <= ? ORDER BY rate ASC, capacity DESC"))
+							try (PreparedStatement pstmt = conn.prepareStatement("SELECT code, name, capacity, rate FROM conference_room WHERE code NOT IN (SELECT room_code FROM booking WHERE ? < DATEADD(minute, duration, start_date) AND ? > start_date) AND capacity >= ? AND rate <= ? ORDER BY rate ASC, capacity DESC"))
 							{
 								pstmt.setDate(1, sqlDate);
 								pstmt.setDate(2, sqlEndDate);
@@ -85,7 +85,7 @@ import java.sql.Connection;
 								{
 									while(rslt.next())
 									{
-										String roomCode = rslt.getString("room_code");
+										String roomCode = rslt.getString("code");
 										ConferenceRoomData crData = new ConferenceRoomData();
 										//ConferenceRoom cr = crData.getConferenceRoom(roomCode);
 										

@@ -23,7 +23,7 @@
 		<label for="startingDate">Starting Date: </label>
 		<input type="text" name="startingDate" id="startingDate" value="${startingDate}"></input><br></br><br></br>
 		<label for="start">Start Time: </label>
-		<select name="start" id="start">
+		<select name="startBefore" id="start">
 			<option value="0">12:00am</option>
 			<option value="15">12:15am</option>
 			<option value="30">12:30am</option>
@@ -254,32 +254,19 @@
 				<th>Hourly Rate</th>
 				<th>These fields will be hidden</th>
 			</tr>
-			<tr>
-				<td>Room A</td>
-				<td>5</td>
-				<td>$3</td>
-				<td>
-					<form>
-						<input type="text" name="roomCode" value="111111111"></input>
-						<input type="text" name="startingDate" value="November 03, 2021"></input>
-						<input type="text" name="startingTime" value="105"></input>
-						<input type="text" name="duration" value="60"></input>
-						<input type="submit" value="Book Room" name="book-room-clicked"></input>
-					</form>
-				</td>
-			</tr>
+			
 			<c:forEach var="conferenceRoom" items="${conferenceRooms}" varStatus="status">
 				<tr>
 				<td>${conferenceRoom.getName()}</td>
 				<td>${conferneceRoom.getCapacity()}</td>
 				<td>$ ${conferenceRoom.getRate()}</td>
 				<td>
-					<form>
-						<input type="hidden" name="roomCode" value="${conferenceRoom.getCode()}"></input>
-						<input type="hidden" name="startingDate" value="${startingDate}"></input>
-						<input type="hidden" name="startingTime" value="${startTime}"></input>
-						<input type="hidden" name="duration" value="${duration}"></input>
-						<input type="submit" value="Book Room"></input>
+					<form method="POST" action="book.jspx">
+						<input type="text" name="roomCode" value="${conferenceRoom.getCode()}"></input>
+						<input type="text" name="startingDate" value="${startingDate}"></input>
+						<input type="text" name="startAfter" value="${startBefore}"></input>
+						<input type="text" name="duration" value="${duration}"></input>
+						<input type="submit" value="Book Room" name="book-room-clicked"></input>
 					</form>
 				</td>
 			</tr>

@@ -16,10 +16,14 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+
 import com.mydomain.mainpackage.data.*;
+
 import ca.on.senecac.prg556.common.StringHelper;
 import ca.senecacollege.prg556.hocorba.bean.Client;
 import ca.senecacollege.prg556.hocorba.bean.ConferenceRoom;
+import ca.senecacollege.prg556.hocorba.dao.ConferenceRoomBookingDAO;
+import ca.senecacollege.prg556.hocorba.dao.ConferenceRoomDAO;
 
 import com.mydomain.mainpackage.data.BadRequestException;
 import com.mydomain.mainpackage.data.ClientData;
@@ -71,8 +75,8 @@ public class BookFilter implements Filter {
 			}
 			
 			//Start time set
-			String startTime = request.getParameter("start");
-			request.setAttribute("startTime", startTime);
+			String startTime = request.getParameter("startBefore");
+			request.setAttribute("startBefore", startTime);
 			
 			
 			//Duration set
@@ -145,6 +149,9 @@ public class BookFilter implements Filter {
 			//Do this if the submit button was pressed
 			if (StringHelper.isNotNullOrEmpty(request.getParameter("book-room-clicked")))
 			{
+				String startTimeAfter = request.getParameter("startAfter");
+				request.setAttribute("startAfter", startTimeAfter);
+				
 				String roomCode = request.getParameter("roomCode");
 				if(roomCode == null || roomCode == ""){
 					throw new BadRequestException("date is invalid");
@@ -157,7 +164,9 @@ public class BookFilter implements Filter {
 							throw new BadRequestException("Room ID is invalid");
 						} else{
 							SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
-							long startTimeLong = Long.parseLong(startTime) * 60000L;
+							long startTimeLong = Long.parseLong(startTimeAfter);
+							startTimeLong =	startTimeLong * 60000L;
+							
 							Date dateParam = formatter.parse(startingDate);
 							long startTimeCombined = (dateParam.getTime() + startTimeLong);
 							dateParam.setTime(startTimeCombined);
@@ -166,8 +175,9 @@ public class BookFilter implements Filter {
 							if(cd.getClient(client.getId()) == null){
 								throw new BadRequestException("client ID is invalid");
 							} else{
-								ConferenceRoomBookingData crBookingData = new ConferenceRoomBookingData(DataSourceFactory.getDataSource());
-								crBookingData.bookConferenceRoom(client.getId(), roomCode, dateParam, Integer.parseInt(duration));
+								ConferenceRoomBookingDAO dao = ConferenceRoomBookingDAOFactory.getConferenceRoomBookingDAO();
+								//ConferenceRoomBookingData crBookingData = new ConferenceRoomBookingData(DataSourceFactory.getDataSource());
+								dao.bookConferenceRoom(client.getId(), roomCode, dateParam, Integer.parseInt(duration));
 							}
 						}
 					} catch (NumberFormatException e) {

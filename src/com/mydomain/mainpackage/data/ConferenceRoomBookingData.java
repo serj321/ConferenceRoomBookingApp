@@ -47,6 +47,7 @@ public class ConferenceRoomBookingData implements ConferenceRoomBookingDAO{
 						rslt.updateString("room_code", roomCode);
 						rslt.updateTimestamp("start_date", new Timestamp (start.getTime()));
 						rslt.updateInt("duration", duration);
+						rslt.insertRow();
 					}
 					String sql = "SELECT @@IDENTITY";
 					

@@ -1,13 +1,12 @@
 package com.mydomain.mainpackage.data;
 
-import ca.senecacollege.prg556.hocorba.dao.ConferenceRoomDAO;
+import ca.senecacollege.prg556.hocorba.dao.ConferenceRoomBookingDAO;
 
-// import ConferenceROomBookingDAO;
 
 public class ConferenceRoomBookingDAOFactory {
 
-	public static ConferenceRoomDAO getConferenceRoomBookingDAO(){
-		return new ConferenceRoomData();
+	public static ConferenceRoomBookingDAO getConferenceRoomBookingDAO(){
+		return new ConferenceRoomBookingData(DataSourceFactory.getDataSource());
 	}
 	
 }

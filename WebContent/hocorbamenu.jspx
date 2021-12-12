@@ -7,6 +7,6 @@
 		<li><a class="menu-text">${bookingCount} Hotel Bookings</a></li>
 		<li><a href="book.jspx" class="menu-text">Book a Room</a></li>
 		<li><a href="bookings.jspx" class="menu-text">Current Bookings</a></li>
-		<li><a href="#" class="menu-text">Logout</a></li>
+		<li><a href="logout.jspx" class="menu-text">Logout</a></li>
 	</ul>
 </jsp:root>

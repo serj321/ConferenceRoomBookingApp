@@ -86,9 +86,8 @@
   	</filter>
   	<filter-mapping>
     	<filter-name>HOCORBAMMenuFilter</filter-name>
-    	<url-pattern>/.hocorbamenu.jspx</url-pattern>
-    	<dispatcher>REQUEST</dispatcher>
-    <dispatcher>FORWARD</dispatcher>
+    	<url-pattern>/hocorbamenu.jspx</url-pattern>
+    	<dispatcher>INCLUDE</dispatcher>
   </filter-mapping>
     <filter>
     <display-name>LogoutFilter</display-name>

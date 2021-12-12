@@ -271,50 +271,6 @@
 				</td>
 			</tr>
 			</c:forEach>
-			<!-- 
-			<tr>
-				<td>Room C</td>
-				<td>5</td>
-				<td>$4</td>
-				<td>
-					<form>
-						<input type="text" name="roomCode" value="222222222"></input>
-						<input type="text" name="startingDate" value="November 03, 2021"></input>
-						<input type="text" name="startingTime" value="105"></input>
-						<input type="text" name="duration" value="60"></input>
-						<input type="submit" value="Book Room"></input>
-					</form>
-				</td>
-			</tr>
-			<tr>
-				<td>Room E</td>
-				<td>5</td>
-				<td>$2</td>
-				<td>
-					<form>
-						<input type="text" name="roomCode" value="333333333"></input>
-						<input type="text" name="startingDate" value="November 03, 2021"></input>
-						<input type="text" name="startingTime" value="105"></input>
-						<input type="text" name="duration" value="60"></input>
-						<input type="submit" value="Book Room"></input>
-					</form>
-				</td>
-			</tr>
-			<tr>
-				<td>Room G</td>
-				<td>5</td>
-				<td>$4</td>
-				<td>
-					<form>
-						<input type="text" name="roomCode" value="123456789"></input>
-						<input type="text" name="startingDate" value="November 03, 2021"></input>
-						<input type="text" name="startingTime" value="105"></input>
-						<input type="text" name="duration" value="60"></input>
-						<input type="submit" value="Book Room"></input>
-					</form>
-				</td>
-			</tr>
-			-->
 		</table>
 		</form>
 	</div>

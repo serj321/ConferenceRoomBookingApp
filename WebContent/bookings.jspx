@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" 
 	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
 	version="2.0">	
     <jsp:directive.page language="java"
         contentType="application/xhtml+xml; charset=UTF-8" pageEncoding="UTF-8" />
@@ -28,8 +29,7 @@
 				<th>Booking Code</th>
 				<th>Room Name</th>
 				<th>Room Capacity</th>
-				<th>Booking start date</th>
-				<th>Booking start time</th>
+				<th>Booking start date and time</th>
 				<th>Booking duration</th>
 				<th>Booking cost</th>
 				<th>Cancel Booking</th>
@@ -38,15 +38,15 @@
 			<tr>
   				<td>${conferenceRoom.getBookingCode()}</td>
   				<td>${conferenceRoom.getRoomName()}</td>
-  				<td>${conferneceRoom.getRoomCapacity().toString()}</td>
-  				<td>${conferneceRoom.getStartDate()}</td>
- 				<td> start time here </td>
- 				<td>${conferneceRoom.getDuration()}</td>
+  				<td>${conferenceRoom.getRoomCapacity()}</td>
+  				<fmt:setLocale value="en_US" />   
+				<td><fmt:formatDate type="both" pattern="MMMM dd, yyyy h:mm a" value="${conferenceRoom.getStartDate()}"/></td>
+ 				<td>${conferenceRoom.getDuration()}</td>
  				<td>$${conferenceRoom.getCost()}</td>
  				<td>
  					<form action="bookings.jspx" method="POST">
  						<input type="hidden" name="bookingCode" value="${conferenceRoom.getBookingCode()}"></input>
- 						<button type="submit" name="cancel-booking-clicked">Cancel booking</button>
+ 						<input type="submit" name="cancel-booking-clicked" value="Cancel Booking"></input>
  					</form>
  				</td>
  			</tr>

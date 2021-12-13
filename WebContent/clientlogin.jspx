@@ -28,7 +28,7 @@
 		<label for="clientPassword">Enter your Password  </label>
 		<input type="password" id="clientPassword" name="clientPassword"> </input>
 		<br></br>
-		<button>Submit</button>
+		<button>Login</button>
 		<br></br>
 	</form>
 		

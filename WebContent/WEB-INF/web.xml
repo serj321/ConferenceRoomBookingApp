@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>finalProjectPRG556</display-name>
   <jsp-config>
     <jsp-property-group>
@@ -10,38 +10,38 @@
   <error-page>
     <exception-type>com.mydomain.mainpackage.data.BadRequestException</exception-type>
     <location>/badrequest.jspx</location>
-  </error-page>  
+  </error-page>
   <filter>
-	<display-name>RedirectFilter</display-name>
-	<filter-name>RedirectFilter</filter-name>
-	<filter-class>ca.on.senecac.prg556.common.RedirectFilter</filter-class>
-	<init-param>
-	<description>URL to redirect or dispatch to</description>
-	<param-name>url</param-name>
-	<param-value>/bookings.jspx</param-value>
-	</init-param>
-	<init-param>
-	<description>Specifies to redirect (REDIRECT) or dispatch forward (DISPATCH)</description>
-	<param-name>method</param-name>
-	<param-value>DISPATCH</param-value>
-	</init-param>
+    <display-name>RedirectFilter</display-name>
+    <filter-name>RedirectFilter</filter-name>
+    <filter-class>ca.on.senecac.prg556.common.RedirectFilter</filter-class>
+    <init-param>
+      <description>URL to redirect or dispatch to</description>
+      <param-name>url</param-name>
+      <param-value>/bookings.jspx</param-value>
+    </init-param>
+    <init-param>
+      <description>Specifies to redirect (REDIRECT) or dispatch forward (DISPATCH)</description>
+      <param-name>method</param-name>
+      <param-value>DISPATCH</param-value>
+    </init-param>
   </filter>
   <filter>
-	<display-name>ClientLoginFilter</display-name>
-	<filter-name>ClientLoginFilter</filter-name>
-	<filter-class>com.mydomain.mainpackage.filters.ClientLoginFilter</filter-class>
-	</filter>
+    <display-name>ClientLoginFilter</display-name>
+    <filter-name>ClientLoginFilter</filter-name>
+    <filter-class>com.mydomain.mainpackage.filters.ClientLoginFilter</filter-class>
+  </filter>
   <filter-mapping>
-	<filter-name>ClientLoginFilter</filter-name>
+    <filter-name>ClientLoginFilter</filter-name>
     <url-pattern>/clientlogin.jspx</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
   </filter-mapping>
   <filter>
-	<display-name>AuthenticatedAccessFilter</display-name>
-	<filter-name>AuthenticatedAccessFilter</filter-name>
-	<filter-class>com.mydomain.mainpackage.filters.AuthenticatedAccessFilter</filter-class>
-	<init-param>
+    <display-name>AuthenticatedAccessFilter</display-name>
+    <filter-name>AuthenticatedAccessFilter</filter-name>
+    <filter-class>com.mydomain.mainpackage.filters.AuthenticatedAccessFilter</filter-class>
+    <init-param>
       <description></description>
       <param-name>login</param-name>
       <param-value>/clientlogin.jspx</param-value>
@@ -52,44 +52,41 @@
     <url-pattern>/</url-pattern>
     <url-pattern>*.jspx</url-pattern>
   </filter-mapping>
-
-	<filter>
-    	<display-name>BookingsFilter</display-name>
-   		<filter-name>BookingsFilter</filter-name>
-    	<filter-class>com.mydomain.mainpackage.filters.BookingsFilter</filter-class>
-  	</filter>
-  	<filter-mapping>
-    	<filter-name>BookingsFilter</filter-name>
-    	<url-pattern>/bookings.jspx</url-pattern>
-    	<dispatcher>REQUEST</dispatcher>
-    	<dispatcher>FORWARD</dispatcher>
-  	</filter-mapping>
-  	
-	
-	<filter>
-    	<display-name>BookFilter</display-name>
-    	<filter-name>BookFilter</filter-name>
-    	<filter-class>com.mydomain.mainpackage.filters.BookFilter</filter-class>
-  	</filter>
-  	<filter-mapping>
-   	 	<filter-name>BookFilter</filter-name>
-   		<url-pattern>/book.jspx</url-pattern>
-    	<dispatcher>REQUEST</dispatcher>
-    	<dispatcher>FORWARD</dispatcher>
-  	</filter-mapping>
-
-  	
-    <filter>
-    	<display-name>HOCORBAMMenuFilter</display-name>
-    	<filter-name>HOCORBAMMenuFilter</filter-name>
+  <filter>
+    <display-name>BookingsFilter</display-name>
+    <filter-name>BookingsFilter</filter-name>
+    <filter-class>com.mydomain.mainpackage.filters.BookingsFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>BookingsFilter</filter-name>
+    <url-pattern>/bookings.jspx</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  <filter>
+    <display-name>BookFilter</display-name>
+    <filter-name>BookFilter</filter-name>
+    <filter-class>com.mydomain.mainpackage.filters.BookFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>BookFilter</filter-name>
+    <url-pattern>/book.jspx</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+  </filter-mapping>
+  
+  <filter>
+    	<display-name>HOCORBAMenuFilter</display-name>
+    	<filter-name>HOCORBAMenuFilter</filter-name>
     	<filter-class>com.mydomain.mainpackage.filters.HOCORBAMMenuFilter</filter-class>
   	</filter>
   	<filter-mapping>
-    	<filter-name>HOCORBAMMenuFilter</filter-name>
+    	<filter-name>HOCORBAMenuFilter</filter-name>
     	<url-pattern>/hocorbamenu.jspx</url-pattern>
     	<dispatcher>INCLUDE</dispatcher>
   </filter-mapping>
-    <filter>
+  
+  <filter>
     <display-name>LogoutFilter</display-name>
     <filter-name>LogoutFilter</filter-name>
     <filter-class>com.mydomain.mainpackage.filters.LogoutFilter</filter-class>

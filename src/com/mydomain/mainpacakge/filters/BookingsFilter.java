@@ -69,7 +69,7 @@ public class BookingsFilter implements Filter {
 			
 			// ConferenceRoomDAO dao = ConferenceRoomDAOFactory.getConferenceRoomDAO();
 			ConferenceRoomBookingData roomBooking = new ConferenceRoomBookingData(DataSourceFactory.getDataSource());
-			if ("POST".equals(request.getMethod()) && StringHelper.isNotNullOrEmpty(request.getParameter("cancel-booking-clicked") ))
+			if (StringHelper.isNotNullOrEmpty(request.getParameter("cancel-booking-clicked") ))
 			{
 				int getBookingCode = Integer.parseInt(request.getParameter("bookingCode"));
 				if(getBookingCode < 0 )

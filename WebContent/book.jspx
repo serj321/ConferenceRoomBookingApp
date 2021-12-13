@@ -237,7 +237,7 @@
 	<div>
 		<h2>Search Criteria</h2>
 		<p>Starting Date: ${startingDate}</p>
-		<p>Starting Time: ${startTime}</p>
+		<p>Starting Time: ${startBefore}</p>
 		<p>Duration: ${duration} minutes</p>
 		<c:if test="${!empty capacity}">
 		<p>Minimum Room Capacity: ${capacity}</p>
@@ -253,20 +253,19 @@
 				<th>Room Name</th>
 				<th>Room Capacity</th>
 				<th>Hourly Rate</th>
-				<th>These fields will be hidden</th>
 			</tr>
 			
 			<c:forEach var="conferenceRoom" items="${conferenceRooms}" varStatus="status">
 				<tr>
 				<td>${conferenceRoom.getName()}</td>
-				<td>${conferneceRoom.getCapacity()}</td>
+				<td>${conferenceRoom.getCapacity()}</td>
 				<td>$ ${conferenceRoom.getRate()}</td>
 				<td>
 					<form method="POST" action="book.jspx">
-						<input type="text" name="roomCode" value="${conferenceRoom.getCode()}"></input>
-						<input type="text" name="startingDate" value="${startingDate}"></input>
-						<input type="text" name="startAfter" value="${startBefore}"></input>
-						<input type="text" name="duration" value="${duration}"></input>
+						<input type="hidden" name="roomCode" value="${conferenceRoom.getCode()}"></input>
+						<input type="hidden" name="startingDate" value="${startingDate}"></input>
+						<input type="hidden" name="startAfter" value="${startBefore}"></input>
+						<input type="hidden" name="duration" value="${duration}"></input>
 						<input type="submit" value="Book Room" name="book-room-clicked"></input>
 					</form>
 				</td>
